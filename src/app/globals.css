@@ -1,0 +1,301 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-brand-25: var(--brand-25);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-900: var(--brand-900);
+  --shadow-card: var(--shadow-card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/*
+  Link-style design system, adapted to blue.
+  The polish comes from a coherent 10-step brand scale + tinted near-black
+  navy "ink" (not pure black) + cool neutral grays + a layered blue-cast
+  soft shadow. No gradients — richness is achieved by layering solid tones.
+*/
+
+:root {
+  /* Brand scale — deep navy blue (mirrors Stripe Link's green scale shape) */
+  --brand-0:   #ffffff;
+  --brand-25:  #eef3ff;  /* whisper-blue tint, near-white (offset surfaces) */
+  --brand-50:  #d7e2ff;
+  --brand-100: #aec4ff;
+  --brand-200: #6e9bff;  /* icon accent on dark / hover bg */
+  --brand-300: #3b73ff;  /* hero italic emphasis + primary button bg */
+  --brand-400: #2a5fe6;
+  --brand-500: #1f4dc0;  /* hover on link/action text */
+  --brand-600: #1a40a0;
+  --brand-700: #163380;
+  --brand-800: #112657;
+  --brand-850: #14213f;  /* secondary dark-button hover bg */
+  --brand-900: #0a1228;  /* near-black navy — the "ink". NOT pure black. */
+
+  /* Cool neutral grays (Link uses neutral; we keep them achromatic so blue carries the hue) */
+  --neutral-0:   #ffffff; /* surface background */
+  --neutral-50:  #fafafa; /* offset subtle section background */
+  --neutral-100: #f5f5f5; /* tertiary button bg / hero card */
+  --neutral-200: #e5e5e5; /* light borders */
+  --neutral-300: #d4d4d4; /* primary border */
+  --neutral-400: #a3a3a3;
+  --neutral-500: #737373; /* secondary border */
+  --neutral-600: #525252; /* body description text in cards */
+  --neutral-700: #404040; /* inline link hover */
+  --neutral-800: #262626;
+  --neutral-900: #171717; /* default body text / ink */
+
+  /* Tokens */
+  --ink: var(--neutral-900);
+  --foreground: var(--neutral-900);
+  --background: var(--neutral-0);
+  --card: var(--neutral-0);
+  --card-foreground: var(--neutral-900);
+  --popover: #ffffff;
+  --popover-foreground: var(--neutral-900);
+
+  --primary: var(--brand-900);            /* dark navy ink for primary actions */
+  --primary-foreground: #ffffff;
+  --secondary: var(--brand-100);
+  --secondary-foreground: var(--brand-900);
+  --muted: var(--neutral-50);
+  --muted-foreground: var(--neutral-600);
+  --accent: var(--brand-25);
+  --accent-foreground: var(--brand-900);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: var(--neutral-200);
+  --input: var(--neutral-200);
+  --ring: var(--brand-300);
+
+  /* The layered, soft, blue-cast shadow — Link's signature depth trick.
+     rgba(15,23,42) is a dark navy, not pure black. Soft + layered. */
+  --shadow-card:
+    0px 25px 50px 0px rgba(15, 23, 42, 0.08),
+    0px 7.5px 17.5px 0px rgba(15, 23, 42, 0.08),
+    0px 2.5px 7.5px 0px rgba(0, 0, 0, 0.10);
+  /* Barely-perceptible white hairline for dark surfaces (Link's 4% trick) */
+  --hairline-light: hsla(0, 0%, 100%, 0.04);
+
+  /* Chart family inherits brand scale */
+  --chart-1: var(--brand-300);
+  --chart-2: var(--brand-200);
+  --chart-3: var(--brand-100);
+  --chart-4: var(--brand-500);
+  --chart-5: var(--brand-800);
+
+  --radius: 0.75rem;
+
+  /* Sidebar kept coherent */
+  --sidebar: var(--neutral-0);
+  --sidebar-foreground: var(--neutral-900);
+  --sidebar-primary: var(--brand-900);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--brand-25);
+  --sidebar-accent-foreground: var(--brand-900);
+  --sidebar-border: var(--neutral-200);
+  --sidebar-ring: var(--brand-300);
+}
+
+.dark {
+  --background: var(--brand-900);
+  --foreground: #ffffff;
+  --ink: #ffffff;
+  --card: #11233f;
+  --card-foreground: #ffffff;
+  --popover: var(--brand-900);
+  --popover-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: var(--brand-900);
+  --secondary: var(--brand-800);
+  --secondary-foreground: #ffffff;
+  --muted: #14264a;
+  --muted-foreground: #aac4ff;
+  --accent: var(--brand-800);
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: hsla(0, 0%, 100%, 0.08);
+  --input: hsla(0, 0%, 100%, 0.12);
+  --ring: var(--brand-200);
+  --chart-1: var(--brand-200);
+  --chart-2: var(--brand-100);
+  --chart-3: var(--brand-300);
+  --chart-4: var(--brand-500);
+  --chart-5: var(--brand-850);
+}
+
+/* --- Layout + motion tokens (inspired by link.com's 24-col shell & ------
+   Stripe's published motion system). Kept alongside the brand tokens above
+   so the whole theme hangs together in one place. */
+:root {
+  /* A master 12-col subgrid feel everything snaps to. Wider max width than the
+     old max-w-6xl so large displays breathe, with responsible gutters. */
+  --layoutMargin: 64px;   /* ≤1024: 24px · ≤600: 12px        */
+  --layoutGutter: 16px;   /* ≤1024: 10px                     */
+  --layoutMaxWidth: 1800px;
+  --headerNavOffset: 96px; /* hero pad-top + scroll-padding    */
+
+  /* Radius scale (from DESIGN.md §5 — exact link.com values) */
+  --radius-xs: 8px;    /* header, cookie banner, hero CTA default  */
+  --radius-sm-2: 10px; /* buttons default                          */
+  --radius-md-2: 16px; /* popovers, section graphics               */
+  --radius-lg-2: 28px; /* hero card, phone mockups, button hover    */
+  --radius-xl-2: 90px; /* hero CTA hover, "Built by" pill           */
+
+  /* Expo-out is the default everywhere; back-overshoot only for playful pops;
+     shake only for errors; ambient 4s linear for progress fills. Never raw
+     "ease". */
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-back: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  --ease-in-acc:      cubic-bezier(0.55, 0.085, 0.68, 0.53);
+  --ease-out-quad:    cubic-bezier(0.36, 0.07, 0.19, 0.97);
+
+  --dur-fast:     180ms;  /* hover, tap, icon pop       */
+  --dur-default:  260ms;  /* slide, scale, fade         */
+  --dur-deliberate: 400ms;/* shake, status change       */
+
+  /* Mono numerals for transactional content (MatterMono stand-in) */
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--headerNavOffset);
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    /* Font smoothing — required to make the typeface render crisp */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /*
+    Headings use Space Grotesk (--font-headline) per the original Paymit site.
+    Inverted hierarchy: larger titles = lighter weight (500); small labels
+    stay bolder (600). No bold/700 on body text — 700 reserved for Space
+    Grotesk headlines and PT Sans button labels only.
+  */
+  h1, h2 {
+    font-family: var(--font-headline), var(--font-sans), sans-serif;
+  }
+  h1 { font-weight: 500; letter-spacing: -0.02em; text-wrap: balance; }
+  h2 { font-weight: 500; letter-spacing: -0.015em; text-wrap: balance; }
+  h3 { font-weight: 600; letter-spacing: -0.01em; }
+  h4, h5, h6 { font-weight: 600; letter-spacing: -0.005em; }
+
+  /* Tabular/monospace numerals — for any transactional figure, amount, or
+     receipt. Add `.nums` to the element to opt in. */
+  .nums {
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum" 1, "zero" 1;
+    letter-spacing: -0.01em;
+  }
+
+  /* --- Scroll reveal (link.com's fade + slide-up, expo-out, ~260ms) -------- */
+  /* Elements with `data-reveal` start hidden; the Reveal component swaps in
+     the .is-visible class via IntersectionObserver. Reduced motion = instant. */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity var(--dur-default) var(--ease-out-expo),
+      transform var(--dur-default) var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    html { scroll-behavior: auto; }
+  }
+
+  /* --- Button / card micro-interactions (link.com ethos) ----------------- */
+  /* Trailing arrow nudges north-east on hover. */
+  .arrow-nudge { transition: transform var(--dur-fast) var(--ease-out-expo); }
+  .group:hover .arrow-nudge,
+  .btn:hover .arrow-nudge { transform: translate(2px, -2px); }
+
+  /* Button radius morph — link.com's signature micro-interaction (§5).
+     Standard buttons: 10px → 28px on hover (.2s ease-in-out).
+     Hero CTA: 8px → 90px on hover (.3s ease-in-out). */
+  .btn-morph {
+    border-radius: var(--radius-sm-2, 10px);
+    transition: border-radius .2s ease-in-out, background-color .2s linear, color .2s linear, border-color .2s linear;
+  }
+  .btn-morph:hover { border-radius: var(--radius-lg-2, 28px); }
+
+  .btn-hero-morph {
+    border-radius: var(--radius-xs, 8px);
+    transition: border-radius .3s ease-in-out, background-color .3s ease-in-out, border-color .3s ease-in-out;
+  }
+  .btn-hero-morph:hover { border-radius: var(--radius-xl-2, 90px); }
+  .btn-hero-morph .arrow-tile { transition: border-radius .3s ease-in-out; }
+  .btn-hero-morph:hover .arrow-tile { border-radius: var(--radius-xl-2, 90px); }
+
+  /* Link underline grows left→right on hover. */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size var(--dur-fast) var(--ease-out-expo);
+  }
+  .link-underline:hover { background-size: 100% 1px; }
+}
