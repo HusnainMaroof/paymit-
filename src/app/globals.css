@@ -38,12 +38,6 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --color-ink: var(--ink);
-  --color-brand-25: var(--brand-25);
-  --color-brand-100: var(--brand-100);
-  --color-brand-200: var(--brand-200);
-  --color-brand-300: var(--brand-300);
-  --color-brand-900: var(--brand-900);
   --shadow-card: var(--shadow-card);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -54,153 +48,156 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-/*
-  Link-style design system, adapted to blue.
-  The polish comes from a coherent 10-step brand scale + tinted near-black
-  navy "ink" (not pure black) + cool neutral grays + a layered blue-cast
-  soft shadow. No gradients — richness is achieved by layering solid tones.
-*/
-
 :root {
-  /* Brand scale — deep navy blue (mirrors Stripe Link's green scale shape) */
-  --brand-0:   #ffffff;
-  --brand-25:  #eef3ff;  /* whisper-blue tint, near-white (offset surfaces) */
-  --brand-50:  #d7e2ff;
-  --brand-100: #aec4ff;
-  --brand-200: #6e9bff;  /* icon accent on dark / hover bg */
-  --brand-300: #3b73ff;  /* hero italic emphasis + primary button bg */
-  --brand-400: #2a5fe6;
-  --brand-500: #1f4dc0;  /* hover on link/action text */
-  --brand-600: #1a40a0;
-  --brand-700: #163380;
-  --brand-800: #112657;
-  --brand-850: #14213f;  /* secondary dark-button hover bg */
-  --brand-900: #0a1228;  /* near-black navy — the "ink". NOT pure black. */
+  /* ─── Brand Palette (Paymit Blue — mapped from DESIGN.md green) ─── */
+  --colorBrand0:   #FFFFFF;
+  --colorBrand25:  #eef3ff;
+  --colorBrand50:  #d7e2ff;
+  --colorBrand100: #aec4ff;
+  --colorBrand200: #6e9bff;
+  --colorBrand300: #3b73ff;
+  --colorBrand400: #2a5fe6;
+  --colorBrand500: #1f4dc0;
+  --colorBrand600: #1a40a0;
+  --colorBrand700: #163380;
+  --colorBrand800: #112657;
+  --colorBrand850: #14213f;
+  --colorBrand900: #0a1228;
 
-  /* Cool neutral grays (Link uses neutral; we keep them achromatic so blue carries the hue) */
-  --neutral-0:   #ffffff; /* surface background */
-  --neutral-50:  #fafafa; /* offset subtle section background */
-  --neutral-100: #f5f5f5; /* tertiary button bg / hero card */
-  --neutral-200: #e5e5e5; /* light borders */
-  --neutral-300: #d4d4d4; /* primary border */
-  --neutral-400: #a3a3a3;
-  --neutral-500: #737373; /* secondary border */
-  --neutral-600: #525252; /* body description text in cards */
-  --neutral-700: #404040; /* inline link hover */
-  --neutral-800: #262626;
-  --neutral-900: #171717; /* default body text / ink */
+  /* ─── Neutral Palette ─── */
+  --colorNeutral0:   #FFFFFF;
+  --colorNeutral50:  #FAFAFA;
+  --colorNeutral100: #F5F5F5;
+  --colorNeutral200: #E5E5E5;
+  --colorNeutral300: #D4D4D4;
+  --colorNeutral400: #A3A3A3;
+  --colorNeutral500: #737373;
+  --colorNeutral600: #525252;
+  --colorNeutral700: #404040;
+  --colorNeutral800: #262626;
+  --colorNeutral900: #171717;
 
-  /* Tokens */
-  --ink: var(--neutral-900);
-  --foreground: var(--neutral-900);
-  --background: var(--neutral-0);
-  --card: var(--neutral-0);
-  --card-foreground: var(--neutral-900);
-  --popover: #ffffff;
-  --popover-foreground: var(--neutral-900);
+  /* ─── Semantic Color Tokens ─── */
+  --colorTextPrimary:          var(--colorNeutral900);
+  --colorTextSecondary:        var(--colorNeutral0);
+  --colorTextActionPrimary:    var(--colorBrand300);
+  --colorTextActionPrimaryHover: var(--colorBrand500);
+  --colorTextActionSecondary:  var(--colorNeutral900);
+  --colorTextOnAction:         var(--colorBrand900);
+  --colorIconPrimary:          var(--colorBrand200);
+  --colorIconSecondary:        var(--colorBrand900);
+  --colorIconUserLogo:         var(--colorNeutral0);
+  --colorBorderLight:          var(--colorNeutral200);
+  --colorBorderPrimary:        var(--colorNeutral300);
+  --colorBorderSecondary:      var(--colorNeutral500);
+  --colorBackgroundSurface:    var(--colorNeutral0);
+  --colorBackgroundAction:     var(--colorBrand200);
+  --colorBackgroundOffset:     var(--colorNeutral50);
+  --colorShadowCard:           rgba(0,0,0,0.29);
 
-  --primary: var(--brand-900);            /* dark navy ink for primary actions */
+  /* ─── Layout Tokens ─── */
+  --layoutColumnCount: 24;
+  --layoutMargin:      64px;
+  --layoutGutter:      16px;
+  --layoutMaxWidth:    1800px;
+  --headerNavOffset:   96px;
+  --scrollbar-width:   0px;
+
+  /* ─── Typography Tokens ─── */
+  --fontFamily:       "Inter", "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fontMonospace:    "JetBrains Mono", "Fira Code", "SF Mono", monospace;
+
+  /* ─── Font Weight Tokens (DESIGN.md inverted hierarchy) ─── */
+  --fontWeightNormal:   400;
+  --fontWeightSemibold: 500;
+  --fontWeightBold:     600;
+
+  /* ─── Shorthand Font Tokens ─── */
+  --fontHeroTitle:       500 80px/78px var(--fontFamily);
+  --fontSectionTitle:    500 64px/62px var(--fontFamily);
+  --fontSubsectionTitle: 600 48px/46px var(--fontFamily);
+  --fontDetailTitle:     500 16px/24px var(--fontFamily);
+  --fontHeroBody:        400 16px/26px var(--fontFamily);
+  --fontSectionBody:     400 18px/26px var(--fontFamily);
+  --fontSubsectionBody:  400 18px/26px var(--fontFamily);
+  --fontDetailBody:      400 16px/24px var(--fontFamily);
+  --fontCta:             500 16px/16px var(--fontFamily);
+  --fontLink:            500 14px/14px var(--fontFamily);
+
+  /* ─── Spacing Tokens ─── */
+  --spacing-xs:  8px;
+  --spacing-sm:  16px;
+  --spacing-md:  20px;
+  --spacing-lg:  24px;
+
+  /* ─── Card Dimensions ─── */
+  --fieldHeight:            55px;
+  --merchantItemHeight:     100px;
+  --merchantItemInnerHeight: 60px;
+  --paymentMethodHeight:    92px;
+
+  /* ─── Border Radius Tokens ─── */
+  --borderRadiusXs:   8px;
+  --borderRadiusSm:   10px;
+  --borderRadiusMd:   16px;
+  --borderRadiusLg:   28px;
+  --borderRadiusXl:   90px;
+  --borderRadiusPill: 999px;
+
+  /* ─── Shadow Tokens ─── */
+  --shadowCard:
+    0px 25px 50px 0px rgba(48,49,61,.08),
+    0px 7.5px 17.5px 0px rgba(48,49,61,.08),
+    0px 2.5px 7.5px 0px rgba(0,0,0,.12);
+
+  --box-shadow-card:  0 28px 56px 0 hsla(0,0%,9%,.08);
+  --box-shadow-inner: 0px 14px 28px 0px hsla(0,0%,9%,.08);
+  --box-shadow-low:   0 11.916px 30.64px 0 hsla(0,0%,9%,.08);
+
+  /* ─── Animation / Transition Tokens ─── */
+  --transitionButtonColor:      0.2s linear;
+  --transitionButtonBg:         0.2s linear;
+  --transitionButtonRadius:     0.2s ease-in-out;
+  --transitionHeroCtaRadius:    0.3s ease-in-out;
+  --transitionHeroCtaBg:        0.3s ease-in-out;
+  --transitionLink:             0.15s linear;
+  --transitionFooterPillRadius: 0.25s ease-in-out;
+
+  /* ─── Shadcn Mapping ─── */
+  --ink:          var(--colorNeutral900);
+  --foreground:   var(--colorNeutral900);
+  --background:   var(--colorNeutral0);
+  --card:         var(--colorNeutral0);
+  --card-foreground: var(--colorNeutral900);
+  --popover:      #ffffff;
+  --popover-foreground: var(--colorNeutral900);
+  --primary:      var(--colorBrand900);
   --primary-foreground: #ffffff;
-  --secondary: var(--brand-100);
-  --secondary-foreground: var(--brand-900);
-  --muted: var(--neutral-50);
-  --muted-foreground: var(--neutral-600);
-  --accent: var(--brand-25);
-  --accent-foreground: var(--brand-900);
-
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: var(--neutral-200);
-  --input: var(--neutral-200);
-  --ring: var(--brand-300);
-
-  /* The layered, soft, blue-cast shadow — Link's signature depth trick.
-     rgba(15,23,42) is a dark navy, not pure black. Soft + layered. */
-  --shadow-card:
-    0px 25px 50px 0px rgba(15, 23, 42, 0.08),
-    0px 7.5px 17.5px 0px rgba(15, 23, 42, 0.08),
-    0px 2.5px 7.5px 0px rgba(0, 0, 0, 0.10);
-  /* Barely-perceptible white hairline for dark surfaces (Link's 4% trick) */
-  --hairline-light: hsla(0, 0%, 100%, 0.04);
-
-  /* Chart family inherits brand scale */
-  --chart-1: var(--brand-300);
-  --chart-2: var(--brand-200);
-  --chart-3: var(--brand-100);
-  --chart-4: var(--brand-500);
-  --chart-5: var(--brand-800);
-
-  --radius: 0.75rem;
-
-  /* Sidebar kept coherent */
-  --sidebar: var(--neutral-0);
-  --sidebar-foreground: var(--neutral-900);
-  --sidebar-primary: var(--brand-900);
-  --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: var(--brand-25);
-  --sidebar-accent-foreground: var(--brand-900);
-  --sidebar-border: var(--neutral-200);
-  --sidebar-ring: var(--brand-300);
+  --secondary:    var(--colorNeutral100);
+  --secondary-foreground: var(--colorBrand900);
+  --muted:        var(--colorNeutral50);
+  --muted-foreground: var(--colorNeutral600);
+  --accent:       var(--colorBrand25);
+  --accent-foreground: var(--colorBrand900);
+  --destructive:  oklch(0.577 0.245 27.325);
+  --border:       var(--colorNeutral200);
+  --input:        var(--colorNeutral200);
+  --ring:         var(--colorBrand300);
+  --radius:       0.75rem;
 }
 
-.dark {
-  --background: var(--brand-900);
-  --foreground: #ffffff;
-  --ink: #ffffff;
-  --card: #11233f;
-  --card-foreground: #ffffff;
-  --popover: var(--brand-900);
-  --popover-foreground: #ffffff;
-  --primary: #ffffff;
-  --primary-foreground: var(--brand-900);
-  --secondary: var(--brand-800);
-  --secondary-foreground: #ffffff;
-  --muted: #14264a;
-  --muted-foreground: #aac4ff;
-  --accent: var(--brand-800);
-  --accent-foreground: #ffffff;
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: hsla(0, 0%, 100%, 0.08);
-  --input: hsla(0, 0%, 100%, 0.12);
-  --ring: var(--brand-200);
-  --chart-1: var(--brand-200);
-  --chart-2: var(--brand-100);
-  --chart-3: var(--brand-300);
-  --chart-4: var(--brand-500);
-  --chart-5: var(--brand-850);
+@media (max-width: 768px) {
+  :root {
+    --layoutMargin: 16px;
+    --layoutGutter: 8px;
+    --headerNavOffset: 72px;
+  }
 }
 
-/* --- Layout + motion tokens (inspired by link.com's 24-col shell & ------
-   Stripe's published motion system). Kept alongside the brand tokens above
-   so the whole theme hangs together in one place. */
-:root {
-  /* A master 12-col subgrid feel everything snaps to. Wider max width than the
-     old max-w-6xl so large displays breathe, with responsible gutters. */
-  --layoutMargin: 64px;   /* ≤1024: 24px · ≤600: 12px        */
-  --layoutGutter: 16px;   /* ≤1024: 10px                     */
-  --layoutMaxWidth: 1800px;
-  --headerNavOffset: 96px; /* hero pad-top + scroll-padding    */
-
-  /* Radius scale (from DESIGN.md §5 — exact link.com values) */
-  --radius-xs: 8px;    /* header, cookie banner, hero CTA default  */
-  --radius-sm-2: 10px; /* buttons default                          */
-  --radius-md-2: 16px; /* popovers, section graphics               */
-  --radius-lg-2: 28px; /* hero card, phone mockups, button hover    */
-  --radius-xl-2: 90px; /* hero CTA hover, "Built by" pill           */
-
-  /* Expo-out is the default everywhere; back-overshoot only for playful pops;
-     shake only for errors; ambient 4s linear for progress fills. Never raw
-     "ease". */
-  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out-back: cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  --ease-in-acc:      cubic-bezier(0.55, 0.085, 0.68, 0.53);
-  --ease-out-quad:    cubic-bezier(0.36, 0.07, 0.19, 0.97);
-
-  --dur-fast:     180ms;  /* hover, tap, icon pop       */
-  --dur-default:  260ms;  /* slide, scale, fade         */
-  --dur-deliberate: 400ms;/* shake, status change       */
-
-  /* Mono numerals for transactional content (MatterMono stand-in) */
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+@media (max-width: 1024px) and (min-width: 769px) {
+  :root {
+    --layoutMargin: 32px;
+  }
 }
 
 @layer base {
@@ -209,93 +206,111 @@
   }
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: var(--headerNavOffset);
+    scroll-padding-top: 56px;
   }
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-    /* Font smoothing — required to make the typeface render crisp */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /*
-    Headings use Space Grotesk (--font-headline) per the original Paymit site.
-    Inverted hierarchy: larger titles = lighter weight (500); small labels
-    stay bolder (600). No bold/700 on body text — 700 reserved for Space
-    Grotesk headlines and PT Sans button labels only.
-  */
-  h1, h2 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-headline), var(--font-sans), sans-serif;
   }
-  h1 { font-weight: 500; letter-spacing: -0.02em; text-wrap: balance; }
-  h2 { font-weight: 500; letter-spacing: -0.015em; text-wrap: balance; }
-  h3 { font-weight: 600; letter-spacing: -0.01em; }
-  h4, h5, h6 { font-weight: 600; letter-spacing: -0.005em; }
 
-  /* Tabular/monospace numerals — for any transactional figure, amount, or
-     receipt. Add `.nums` to the element to opt in. */
-  .nums {
-    font-family: var(--font-mono);
-    font-feature-settings: "tnum" 1, "zero" 1;
-    letter-spacing: -0.01em;
+  /* ─── Selection ─── */
+  ::selection {
+    background: rgba(59, 115, 255, 0.5);
+    color: var(--colorBrand900);
   }
 
-  /* --- Scroll reveal (link.com's fade + slide-up, expo-out, ~260ms) -------- */
-  /* Elements with `data-reveal` start hidden; the Reveal component swaps in
-     the .is-visible class via IntersectionObserver. Reduced motion = instant. */
-  [data-reveal] {
-    opacity: 0;
-    transform: translateY(14px);
+  /* ─── Scrollbar — thin, brand blue ─── */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--colorBrand300);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--colorBrand400);
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--colorBrand300) transparent;
+  }
+
+  /* ─── Button radius morph — DESIGN.md §5 + §7 + §8:
+       Standard buttons: 10px → 28px on hover (.2s ease-in-out)
+       Three properties: color .2s linear, bg .2s linear, radius .2s ease-in-out */
+  .btn-morph {
+    border-radius: var(--borderRadiusSm);
     transition:
-      opacity var(--dur-default) var(--ease-out-expo),
-      transform var(--dur-default) var(--ease-out-expo);
-    transition-delay: var(--reveal-delay, 0ms);
-    will-change: opacity, transform;
+      color var(--transitionButtonColor),
+      background-color var(--transitionButtonBg),
+      border-radius var(--transitionButtonRadius);
   }
-  [data-reveal].is-visible {
+  .btn-morph:hover {
+    border-radius: var(--borderRadiusLg);
+  }
+
+  /* ─── Hero CTA button — DESIGN.md §7 + §12:
+       8px → 90px on hover (.3s ease-in-out) */
+  .btn-hero-morph {
+    border-radius: var(--borderRadiusXs);
+    transition:
+      border-radius var(--transitionHeroCtaRadius),
+      background-color var(--transitionHeroCtaBg);
+  }
+  .btn-hero-morph:hover {
+    border-radius: var(--borderRadiusXl);
+  }
+  .btn-hero-morph .arrow-tile {
+    border-radius: var(--borderRadiusXs);
+    transition: border-radius var(--transitionHeroCtaRadius);
+  }
+  .btn-hero-morph:hover .arrow-tile {
+    border-radius: var(--borderRadiusLg);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
     opacity: 1;
     transform: translateY(0);
   }
-  @media (prefers-reduced-motion: reduce) {
-    [data-reveal] {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-    html { scroll-behavior: auto; }
-  }
+}
 
-  /* --- Button / card micro-interactions (link.com ethos) ----------------- */
-  /* Trailing arrow nudges north-east on hover. */
-  .arrow-nudge { transition: transform var(--dur-fast) var(--ease-out-expo); }
-  .group:hover .arrow-nudge,
-  .btn:hover .arrow-nudge { transform: translate(2px, -2px); }
-
-  /* Button radius morph — link.com's signature micro-interaction (§5).
-     Standard buttons: 10px → 28px on hover (.2s ease-in-out).
-     Hero CTA: 8px → 90px on hover (.3s ease-in-out). */
-  .btn-morph {
-    border-radius: var(--radius-sm-2, 10px);
-    transition: border-radius .2s ease-in-out, background-color .2s linear, color .2s linear, border-color .2s linear;
+@keyframes fade-in-dropdown {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
   }
-  .btn-morph:hover { border-radius: var(--radius-lg-2, 28px); }
-
-  .btn-hero-morph {
-    border-radius: var(--radius-xs, 8px);
-    transition: border-radius .3s ease-in-out, background-color .3s ease-in-out, border-color .3s ease-in-out;
+  to {
+    opacity: 1;
+    transform: translateX(0);
   }
-  .btn-hero-morph:hover { border-radius: var(--radius-xl-2, 90px); }
-  .btn-hero-morph .arrow-tile { transition: border-radius .3s ease-in-out; }
-  .btn-hero-morph:hover .arrow-tile { border-radius: var(--radius-xl-2, 90px); }
+}
 
-  /* Link underline grows left→right on hover. */
-  .link-underline {
-    background-image: linear-gradient(currentColor, currentColor);
-    background-size: 0% 1px;
-    background-position: 0 100%;
-    background-repeat: no-repeat;
-    transition: background-size var(--dur-fast) var(--ease-out-expo);
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
   }
-  .link-underline:hover { background-size: 100% 1px; }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

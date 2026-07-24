@@ -1,32 +1,22 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, PT_Sans } from "next/font/google";
+import { Inter, DM_Sans } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
-import { siteConfig } from "@/lib/site";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-headline",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
-
-const ptSans = PT_Sans({
+const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const dmSans = DM_Sans({
+  variable: "--font-headline",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: `${siteConfig.name} | Fast, Secure International Money Transfers`,
-  description: siteConfig.description,
-  keywords: [
-    "remittance",
-    "money transfer",
-    "send money online",
-    "international money transfer",
-    "paymit",
-  ],
+  title: "Paymit | Fast, Secure International Money Transfers",
+  description: "Send money globally with Paymit. Enjoy low fees, great exchange rates, and a secure platform for all your remittance needs.",
 };
 
 export default function RootLayout({
@@ -35,21 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${spaceGrotesk.variable} ${ptSans.variable} h-full antialiased`}
-    >
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.1/css/flag-icons.min.css"
-        />
-      </head>
-      <body className="min-h-full flex flex-col font-sans">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-      </body>
+    <html lang="en" className={`${inter.variable} ${dmSans.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }
