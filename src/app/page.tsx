@@ -23,7 +23,7 @@ export default function Home() {
       <SectionReveal>
         <Faq />
       </SectionReveal>
-      <MobileAppCTA />
+      {/* <MobileAppCTA /> */}
       <Footer />
     </>
   );
