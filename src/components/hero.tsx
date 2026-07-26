@@ -34,7 +34,7 @@ function FlagImg({
 
 export function Hero() {
   return (
-    <section className="w-full bg-white pt-[var(--headerNavOffset)] max-md:pt-[72px]">
+    <section className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
       {/* Desktop / Tablet layout (≥768px) — 24-col grid */}
       <div
         className="mx-auto hidden w-full md:grid"
@@ -43,7 +43,7 @@ export function Hero() {
           minHeight: "calc(100dvh - 96px)",
           gridTemplateColumns: "repeat(24, 1fr)",
           columnGap: "var(--layoutGutter)",
-          padding: "0 var(--layoutMargin) 48px",
+          padding: "0 var(--layoutMargin) var(--sectionPaddingY)",
           gridTemplateAreas: `
             ". . . . . . . . . . . . g g g g g g g g g g g g"
             "p p p p p p . . . . . . g g g g g g g g g g g g"
@@ -110,7 +110,16 @@ export function Hero() {
       </div>
 
       {/* Mobile layout (<768px) — stacked */}
-      <div className="flex w-full flex-col items-center justify-between h-[90vh] px-5 pb-12 pt-6 md:hidden">
+      <div
+        className="flex w-full flex-col items-center justify-between md:hidden"
+        style={{
+          height: "90vh",
+          paddingLeft: "var(--layoutMargin)",
+          paddingRight: "var(--layoutMargin)",
+          paddingBottom: "var(--sectionPaddingY)",
+          paddingTop: "24px",
+        }}
+      >
         {/* Hero Pill */}
    
 

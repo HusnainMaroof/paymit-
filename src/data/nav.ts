@@ -31,7 +31,7 @@ export const NAV_LINKS: (NavItem | NavDropdown)[] = [
       { label: "Bangladesh", href: "/send-money/bangladesh" },
     ],
   },
-  { label: "Mobile App", href: "/#mobile-app-section" },
+  { label: "Mobile App", href: "/mobile-app" },
 ];
 
 export function isDropdown(item: NavItem | NavDropdown): item is NavDropdown {

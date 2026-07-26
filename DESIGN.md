@@ -956,12 +956,21 @@ Card: at bottom of flex layout
 src/
 ├── app/
 │   ├── globals.css          # Design tokens + Tailwind v4 + shadcn + animations
-│   ├── layout.tsx           # Root layout, font loading (Inter + DM Sans)
-│   └── page.tsx             # Page composition (Nav + Hero + sections)
+│   ├── layout.tsx           # Root layout, font loading (Inter + DM Sans), SmoothScrollProvider
+│   └── page.tsx             # Page composition (Nav + Hero + Partners + WhyChoose + HowItWorks + Faq + Footer)
 ├── components/
-│   ├── hero.tsx             # HeroSection + HeroGraphicCard (client component)
 │   ├── nav.tsx              # Navigation + Dropdown + MobileDrawer (client component)
+│   ├── hero.tsx             # HeroSection + HeroGraphicCard (client component)
+│   ├── partners.tsx         # Scroll-driven country carousel (Framer Motion, client)
+│   ├── why-choose-paymit.tsx # Feature cards grid (client)
+│   ├── how-it-works.tsx     # GSAP animated 3-step flow with cursor (client)
+│   ├── faq.tsx              # Accordion FAQ (client)
+│   ├── footer.tsx           # Footer with GSAP entrance animations (client)
+│   ├── scroll-progress-indicator.tsx  # Fixed right-side scroll progress (client)
+│   ├── providers/
+│   │   └── smooth-scroll.tsx  # Lenis smooth scroll provider
 │   └── ui/
+│       ├── accordion.tsx    # Radix UI Accordion wrapper
 │       └── select.tsx       # Currency picker (uses @base-ui/react Select)
 ├── data/
 │   ├── currencies.ts        # Currency list, exchange rates, formatting
@@ -976,7 +985,13 @@ src/
 |---|---|---|
 | `Nav` | `"use client"` | useState for mobile toggle, useRef for dropdown timers |
 | `Hero` | `"use client"` | useState for currency selection, amount input |
+| `Partners` | `"use client"` | Framer Motion scroll animations, inertial drag |
+| `WhyChoosePaymit` | `"use client"` | Static but marked for future animation |
+| `HowItWorks` | `"use client"` | GSAP timeline, IntersectionObserver, useState for animation states |
+| `Faq` | `"use client"` | useState for accordion open state, hover-to-open |
+| `Footer` | `"use client"` | GSAP entrance animations on mount |
 | `Select` | `"use client"` | Uses @base-ui/react interactive primitive |
+| `ScrollProgressIndicator` | `"use client"` | Lenis scroll subscription |
 | `page.tsx` | Server (default) | Composes static layout, no interactivity |
 
 ### Currency data pattern
@@ -1028,10 +1043,7 @@ fmt(n, min, max): string
 
 ## 12. GSAP Micro-Animations Guide
 
-**GSAP is NOT currently installed.** Install via:
-```bash
-npm install gsap @types/gsap
-```
+**GSAP is installed** (`gsap@3.15.0`). Also installed: `framer-motion@12.42.2` (used by Partners section), `lucide-react@1.26.0`.
 
 All micro-animations below are designed as optional enhancements that layer on top of existing CSS transitions without breaking the base experience.
 
@@ -1403,7 +1415,7 @@ export function useRippleEffect() {
 | Aspect | Pattern |
 |---|---|
 | Framework | Tailwind CSS v4 |
-| Animations | `tw-animate-css` (CSS keyframes) + optional GSAP |
+| Animations | `tw-animate-css` (CSS keyframes) + GSAP (how-it-works, footer) + Framer Motion (partners) |
 | UI library | shadcn/ui (base-nova style) via `@base-ui/react` |
 | Theme | `@theme inline{}` directive for Tailwind v4 |
 | CSS Modules | Not used — pure Tailwind utility classes |
@@ -1481,15 +1493,489 @@ color: "var(--colorText)"
 
 ---
 
-## 17. Page Structure (Paymit)
+## 17. Page Structure (Paymit — Current Implementation)
 
-1. **Header/Nav** — Fixed top (z-index 50), max-width 1800px centered, 8px border-radius, logo + nav links + Login/Sign Up
-2. **Hero** — 96px top padding, 24-col grid desktop / stacked mobile, min-height 100dvh-96px
+1. **Header/Nav** (`nav.tsx`) — Fixed top (z-index 50), max-width 1800px centered, 8px border-radius, logo + nav links + Login/Sign Up + mobile drawer
+2. **Hero** (`hero.tsx`) — 96px top padding, 24-col grid desktop / stacked mobile, min-height 100dvh-96px
    - Heading: "Send money worldwide." (blue emphasis on "money")
    - Body: "Experience fast, secure, and hassle-free international transfers..."
-   - CTA button: "Get started" with trailing 32×32 NE arrow tile
+   - CTA button: "Get started" with trailing 32x32 NE arrow tile (btn-hero-morph)
    - Graphic: Currency converter card (max-width 440px, 28px border-radius)
-3. **Future sections** — (to be added: features, rates, testimonials, footer)
+3. **Partners** (`partners.tsx`) — Framer Motion scroll-driven clip-path reveal, dark surface (colorBrand900), interactive country pill carousel, 440-680px height
+4. **WhyChoosePaymit** (`why-choose-paymit.tsx`) — 3-column card grid with images, hover lift + shadow
+5. **HowItWorks** (`how-it-works.tsx`) — GSAP-powered interactive animation: 3-step flow (Sign Up -> Send Money -> Money Sent) with cursor simulation, auto-plays on scroll into view, replays up to 2 times
+6. **Faq** (`faq.tsx`) — Radix UI Accordion, 10 questions, hover-to-open, numbered items with blue accent on open
+7. **Footer** (`footer.tsx`) — 5-column grid (1 col mobile -> 5 col desktop), logo + contact + social icons + Company/Legal/Support columns + copyright bar, GSAP staggered entrance
+
+---
+
+## 17.1 Partners Section — IMPLEMENTATION
+
+### Section container
+
+```
+Partners section:
+  relative, mx-auto, w-full
+  maxWidth: var(--layoutMaxWidth)
+  padding: 0 var(--layoutMargin)
+  background: white
+```
+
+### Inner panel (dark surface)
+
+```
+Panel:
+  relative, flex, flex-col, items-center, justify-between
+  overflow: hidden
+  background: var(--colorBrand900)  (ink -- #0A1228)
+  height: clamp(440px, 65vh, 680px)
+  clipPath: animated via scroll progress (inset -> full reveal)
+  boxShadow: 0 28px 56px 0 hsla(0,0%,9%,.08)
+  px-10
+```
+
+### Scroll-driven clip-path animation (Framer Motion)
+
+```tsx
+// Uses useScroll + useTransform for scroll-linked reveal
+const { scrollYProgress } = useScroll({
+  target: sectionRef,
+  offset: ["start 65%", "start 30%"],
+});
+const progress = useTransform(rawProgress, (t) => t * t * (3 - 2 * t)); // smoothstep
+
+const clipPath = useTransform(progress, (p) => {
+  const inv = 1 - p;
+  const vPx = 70 * inv;
+  const hPx = 200 * inv;
+  const vP = 50 * inv;
+  const hP = 50 * inv;
+  const radius = p < 0.8 ? 112 : 112 - ((p - 0.8) / 0.2) * (112 - 32);
+  return `inset(calc(${vP}% - ${vPx}px) calc(${hP}% - ${hPx}px) calc(${vP}% - ${vPx}px) calc(${hP}% - ${hPx}px) round ${radius}px)`;
+});
+```
+
+### Content animation (scroll-linked)
+
+```tsx
+const contentY = useTransform(progress, [0.2, 0.7], [250, 0]);
+const contentScale = useTransform(progress, [0.2, 0.7], [0.6, 1]);
+const contentOpacity = useTransform(progress, [0.2, 0.7], [0, 1]);
+```
+
+### Heading
+
+```tsx
+<h2 className="text-[26px] font-semibold leading-[1.1] tracking-[-0.5px] text-white md:text-[44px] md:leading-[1.05] md:tracking-[-1.4px] lg:text-[56px]">
+  Send money to <span className="text-[var(--colorBrand300)]">{CURRENCIES.length}+ countries</span>
+</h2>
+```
+
+| Context | Size | Line-height | Tracking | Weight |
+|---|---|---|---|---|
+| Mobile | 26px | 1.1 | -0.5px | 600 |
+| Desktop md | 44px | 1.05 | -1.4px | 600 |
+| Desktop lg | 56px | 1.05 | -1.4px | 600 |
+
+### Subtext
+
+```tsx
+<p className="mt-3 text-[13px] font-medium leading-[20px] text-white/55 md:mt-4 md:text-[18px] md:leading-[26px]">
+  From coast to coast, Paymit gets your money there fast.
+</p>
+```
+
+### Country pill carousel
+
+```
+Interactive inertial scroll list (Framer Motion useAnimationFrame)
+  - 12 currencies from CURRENCIES array
+  - Desktop: pills spread horizontally with z-depth parallax
+  - Mobile: pills stack vertically with opacity fade
+  - Pointer drag + inertial momentum
+  - Active pill: bg rgba(59,115,255,0.18), border rgba(59,115,255,0.3)
+  - Flag: 30px circle, Country name: 20px, white/0.9 text
+```
+
+### Glyph (center logo)
+
+```
+Fixed dead-center (not inside animated wrapper)
+  size-16 (64px) circle, bg colorBrand300
+  boxShadow: 0 8px 24px rgba(59,115,255,0.3)
+  Letter "P" in 28px bold white
+  max-md: size-12 (48px)
+  md: size-[80px] x w-[240px] (hidden on mobile)
+```
+
+---
+
+## 17.2 WhyChoosePaymit Section — IMPLEMENTATION
+
+### Section container
+
+```
+WhyChoosePaymit:
+  relative, mx-auto, w-full
+  maxWidth: var(--layoutMaxWidth)
+  padding: var(--sectionPaddingY) var(--layoutMargin)  (80px top/bottom)
+```
+
+### Heading
+
+```tsx
+<h2 className="text-[36px] font-bold leading-[1.1] tracking-[-1px] text-black md:text-[48px] md:tracking-[-1.4px]">
+  Why Choose Paymit
+</h2>
+<p className="mt-4 text-[16px] font-medium leading-[26px] text-black/60 md:text-[18px]">
+  Fast, affordable, and secure money transfers trusted by thousands.
+</p>
+```
+
+| Context | Size | Weight | Tracking |
+|---|---|---|---|
+| Mobile | 36px | 700 | -1px |
+| Desktop | 48px | 700 | -1.4px |
+
+### Cards grid
+
+```
+grid-cols-1 gap-6 md:grid-cols-3 md:gap-8
+```
+
+### Card
+
+```
+Card:
+  flex flex-col overflow-hidden
+  border-radius: var(--borderRadiusMd)  (16px)
+  border: 1px solid var(--colorBorderLight)
+  background: white
+  transition: all 0.3s
+  hover: -translate-y-1 (translateY -4px)
+  hover: shadow-lg
+
+Text block:
+  px-7 pt-8
+
+Title:
+  text-[22px] font-semibold leading-[1.2] tracking-[-0.5px]
+  color: var(--colorTextPrimary)
+
+Description:
+  mt-3 text-[15px] font-normal leading-[1.6]
+  color: var(--colorNeutral600)
+
+Image:
+  mt-6 flex-1 items-end justify-center px-4 pb-0
+  max-w-[220px] object-contain
+```
+
+### Features data
+
+| Title | Description | Image |
+|---|---|---|
+| Best Rates, Bigger Smiles | Avg. customers save 2.13 for every 100 sent vs market average. | /images/best-rates.png |
+| Speed-to-Hand | Avg. transfer reaches recipient in ~1 minute. | /images/faster-rates.png |
+| Repeat Love Rate | Over 70% of customers make another transfer within the same month. | /images/repeat-rates.png |
+
+---
+
+## 17.3 HowItWorks Section — IMPLEMENTATION
+
+### Section container
+
+```
+HowItWorks:
+  relative, mx-auto, w-full, bg-white
+  maxWidth: var(--layoutMaxWidth)
+  padding: var(--sectionPaddingY) var(--layoutMargin)
+```
+
+### Layout
+
+```
+grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16
+  Left (text):  lg:col-span-5
+  Right (anim): lg:col-span-7
+```
+
+### Left heading
+
+```tsx
+<h1 className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px] max-lg:tracking-[-1.3px]">
+  Send Money in <span className="text-[var(--colorTextActionPrimary)]">3 Easy Steps</span>
+</h1>
+<p className="mt-2.5 text-lg font-medium leading-[26px] text-[var(--colorNeutral600)]">
+  Fast, simple, and secure. From account creation to delivery, we handle every step effortlessly.
+</p>
+```
+
+| Context | Size | Line-height | Tracking |
+|---|---|---|---|
+| Desktop | 56px | 54px | -1.7px |
+| Mobile | 44px | 42px | -1.3px |
+
+### Animation canvas (right side)
+
+```
+Container:
+  relative, w-full, h-[580px]
+  border-radius: 28px
+  border: 1px solid var(--colorNeutral200)
+  background: var(--colorNeutral100)
+  overflow: hidden, p-6 sm:p-8
+  flex flex-col justify-between
+```
+
+### GSAP timeline
+
+```
+MAX_PLAYS = 2 (plays twice, then shows replay button)
+Triggers on IntersectionObserver (threshold: 0.4)
+Timeline labels: step1, step2, step3
+Progress tracked via tl.progress() * 100
+```
+
+### Step cards
+
+```
+Card dimensions: w-[300px] sm:w-[340px], rounded-2xl, border, bg-white, p-6, shadow-xl
+
+Card 1 (Sign Up):
+  - Email input with typing animation (human-like keystroke timing)
+  - Password input with dot reveal
+  - Create Free Account button (brand900 bg)
+  - States: typing, password-entered, signing-up (spinner), signed-up (checkmark)
+
+Card 2 (Send Money):
+  - You Send input with counter animation (0 -> 500)
+  - Rate badge: "1 GBP = 19.50 GHS (Zero Fees)" with back.out(1.8) bounce
+  - Recipient Gets with counter animation (0 -> 9750)
+  - Recipient dropdown open/close
+  - Send button with states
+
+Card 3 (Money Sent):
+  - Success checkmark with back.out(2.2) rotation bounce
+  - Transfer summary details
+  - Sparkles pulse animation
+```
+
+### Cursor simulation
+
+```
+MousePointer2 icon (lucide-react)
+  fill: var(--colorBrand900)
+  drop-shadow-md
+  rotate: 350deg
+
+Arc movement (bezier soft curves, not straight lines)
+  dwellJitter: slight wiggle on hover before click
+  triggerClick: scale(0.78) + ripple effect
+
+Ripple: size-9 circle, border-2 emerald-500, bg emerald-500/20
+  scale: 0 -> 1.6 -> 2.4, opacity: 0 -> 1 -> 0
+```
+
+### Step tracker (top bar)
+
+```
+rounded-2xl p-3, border, bg-white
+  Progress bar: h-0.5, bg var(--colorBrand900), width animated
+  Steps: "01 Sign Up", "02 Send Money", "03 Money Sent"
+  Active: bg var(--colorBrand900), text white
+  Completed: bg emerald-50, text emerald-900
+  Inactive: bg white, text var(--colorNeutral500)
+```
+
+### Replay button
+
+```
+rounded-full border bg-white px-4 py-2 text-xs font-bold
+  RotateCcw icon (spins when playing)
+  Shows "Replay Animation" with ring-2 emerald pulse when ended
+  active: scale-95
+```
+
+---
+
+## 17.4 Faq Section — IMPLEMENTATION
+
+### Section container
+
+```
+Faq:
+  relative, mx-auto, w-full, bg-white
+  maxWidth: var(--layoutMaxWidth)
+  padding: var(--sectionPaddingY) var(--layoutMargin)
+```
+
+### Heading
+
+```tsx
+<h1 className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px] max-lg:tracking-[-1.3px]">
+  Frequently Asked <span className="text-[var(--colorTextActionPrimary)]">Questions</span>
+</h1>
+```
+
+### Accordion
+
+```
+Radix UI Accordion (type="single", collapsible)
+  max-w-5xl mx-auto
+  Default open: item "1" (How safe is Paymit?)
+  Hover-to-open: onMouseEnter sets openId
+```
+
+### Accordion item
+
+```
+Trigger:
+  text-left, pl-6 md:pl-14
+  Number (item.id): text-xs font-mono, color var(--colorNeutral400)
+    Hover: color var(--colorBrand300)
+    Open: color var(--colorBrand300)
+  Title: uppercase, text-[28px] md:text-[44px], font-semibold
+    leading: 1.05, tracking: -0.5px md:-1px
+    Default: color foreground/20 (very faint)
+    Hover: color var(--colorTextActionPrimary) (#3B73FF)
+    Open: color primary (full)
+  [&>svg]:hidden (hides default chevron)
+
+Content:
+  pl-6 md:pl-20 md:pr-10
+  text-[16px] font-normal leading-[1.7]
+  color: var(--colorNeutral600)
+  max-w: md:max-w-[640px]
+```
+
+### FAQ data (10 items)
+
+| # | Question |
+|---|---|
+| 1 | How safe is Paymit? |
+| 2 | How do I sign up? |
+| 3 | How much does Paymit cost per transfer? |
+| 4 | How do I contact Paymit? |
+| 5 | Why was my transfer cancelled or rejected? |
+| 6 | How can I track my transfer status? |
+| 7 | My transfer is pending. How do I fix it? |
+| 8 | Why is my account suspended or locked? |
+| 9 | How do I send money online? |
+| 10 | How does "refer a friend" work? |
+
+---
+
+## 17.5 Footer Section — IMPLEMENTATION
+
+### Section container
+
+```
+Footer:
+  relative, w-full
+  border-top: 1px solid var(--colorBorderLight)
+  background: var(--colorNeutral0) (white)
+```
+
+### Inner wrapper
+
+```
+mx-auto, w-full
+  maxWidth: var(--layoutMaxWidth)
+  padding: var(--sectionPaddingY) var(--layoutMargin)  (64px)
+  max-md: py-10, max-md: px-4
+```
+
+### Grid layout
+
+```
+grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5 lg:gap-8
+  Col 1-2 (Logo+Info): lg:col-span-2
+  Col 3 (Company): 1 col
+  Col 4 (Legal): 1 col
+  Col 5 (Support): 1 col
+```
+
+### Logo + Info column
+
+```
+Logo: "Paymit" text, 20px bold, tracking -0.02em
+Tagline: text-[14px] font-normal leading-[22px], max-w-[280px], color var(--colorNeutral600)
+
+Contact items:
+  icon: 16px, color var(--colorBrand300)
+  text: text-[13px] font-normal leading-[18px], color var(--colorNeutral600)
+
+Social icons:
+  size-9 (36px), rounded-[var(--borderRadiusXs)] (8px)
+  border: 1px solid var(--colorBorderLight)
+  color: var(--colorNeutral500)
+  Hover: scale(1.1), bg var(--colorBrand300), color white
+  Active: scale(0.95)
+```
+
+### Link columns
+
+```
+Heading:
+  text-[14px] font-semibold tracking-[-0.01em]
+  color: var(--colorTextPrimary)
+  mb-4
+
+Links:
+  text-[13px] font-normal
+  color: var(--colorNeutral600)
+  Hover: translateX(1), color var(--colorBrand300)
+  Transition: 150ms
+```
+
+### Column data
+
+| Column | Links |
+|---|---|
+| Company | About Us (/about-us), Promotions (/promotions), Careers (/careers) |
+| Legal | Terms of Service (/terms-of-service), Privacy Policy (/privacy-policy), Fraud Prevention Policy (/fraud-prevention-policy), Cookie Policy (/cookie-policy) |
+| Support | Contact Us (/contact-us), FAQ (/help-center#faq), Help Center (/help-center) |
+
+### Social media links
+
+| Platform | URL |
+|---|---|
+| Facebook | https://www.facebook.com/paymitlimited/ |
+| LinkedIn | https://www.linkedin.com/company/paymitlimited |
+| YouTube | https://www.youtube.com/@Paymitlimited |
+| Instagram | https://www.instagram.com/paymitlimited/ |
+| TikTok | https://www.tiktok.com/@paymitlimited |
+
+### Copyright bar
+
+```
+mt-12, border-t pt-6
+  max-md: flex-col max-md:gap-4
+  Left: "© 2025 Paymit Limited. All Rights Reserved." text-[12px], color var(--colorNeutral500)
+  Right: Social icon links (smaller, color var(--colorNeutral400))
+```
+
+### GSAP entrance animations
+
+```tsx
+// On mount (footer.tsx):
+const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+// Footer columns stagger in from bottom
+tl.from(".footer-col", { y: 40, opacity: 0, duration: 0.7, stagger: 0.1 });
+
+// Social icons pop in with bounce
+tl.from(".social-icon", {
+  scale: 0, opacity: 0, duration: 0.4, stagger: 0.06, ease: "back.out(1.7)"
+}, "-=0.3");
+
+// Contact items slide in from left
+tl.from(".contact-item", { x: -20, opacity: 0, duration: 0.5, stagger: 0.08 }, "-=0.4");
+
+// Copyright fades in
+tl.from(".copyright-line", { opacity: 0, y: 10, duration: 0.5 }, "-=0.2");
+```
 
 ---
 

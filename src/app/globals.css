@@ -46,6 +46,8 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
 }
 
 :root {
@@ -101,6 +103,7 @@
   --layoutGutter:      16px;
   --layoutMaxWidth:    1800px;
   --headerNavOffset:   96px;
+  --sectionPaddingY:   80px;
   --scrollbar-width:   0px;
 
   /* ─── Typography Tokens ─── */
@@ -225,27 +228,20 @@
     color: var(--colorBrand900);
   }
 
-  /* ─── Scrollbar — thin, brand blue ─── */
+  /* ─── Scrollbar — hidden; replaced by ScrollProgressIndicator ─── */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 0;
+    height: 0;
+    display: none;
   }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--colorBrand300);
-    border-radius: 999px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--colorBrand400);
-  }
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-thumb,
   ::-webkit-scrollbar-corner {
-    background: transparent;
+    display: none;
   }
   * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--colorBrand300) transparent;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   /* ─── Button radius morph — DESIGN.md §5 + §7 + §8:
@@ -314,3 +310,46 @@
     transform: translateX(0);
   }
 }
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* ── Partners section classes ─── */
+.partners-section {
+  overflow: hidden;
+}
+
+@keyframes countries-marquee {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.countries-marquee {
+  animation: countries-marquee 30s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .countries-marquee {
+    animation: none;
+  }
+}
+
