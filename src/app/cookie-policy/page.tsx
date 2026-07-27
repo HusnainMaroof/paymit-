@@ -1,12 +1,22 @@
+import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
 import { Reveal } from "@/components/reveal";
 
-export const metadata = {
-  title: "Cookie Policy | Paymit",
+export const metadata: Metadata = {
+  title: "Cookie Policy",
   description:
-    "Paymit Limited Cookie Policy — how we use cookies and similar technologies on our website.",
+    "Paymit Limited Cookie Policy — how we use cookies and similar technologies on our website to improve your experience.",
+  openGraph: {
+    title: "Cookie Policy | Paymit",
+    description:
+      "Paymit Limited Cookie Policy — how we use cookies and similar technologies on our website.",
+    url: "https://paymit.co.uk/cookie-policy",
+  },
+  robots: {
+    index: false,
+  },
 };
 
 export default function CookiePolicyPage() {
@@ -14,25 +24,42 @@ export default function CookiePolicyPage() {
     <>
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
+        {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full"
+            className="mx-auto w-full flex justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
             }}
           >
-            <div className="mx-auto max-w-3xl">
-              <h1
-                className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
-                style={{ textWrap: "balance", maxWidth: "720px" }}
-              >
-                Cookie{" "}
-                <span className="text-[var(--colorTextActionPrimary)]">Policy</span>
-              </h1>
-              <p className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2">
-                Last updated: 18 March 2024
-              </p>
+            <h1
+              className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
+              style={{ textWrap: "balance", maxWidth: "720px" }}
+            >
+              Cookie{" "}
+              <span className="text-[var(--colorTextActionPrimary)] block">Policy</span>
+            </h1>
+            <p
+              className="text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
+              style={{ textWrap: "balance" }}
+            >
+              How we use cookies and similar<br />technologies on our website.
+            </p>
+          </div>
+        </section>
+
+        <section
+          className="mx-auto w-full"
+          style={{
+            maxWidth: "var(--layoutMaxWidth)",
+            padding: "0 var(--layoutMargin) var(--sectionPaddingY)",
+          }}
+        >
+          <div className="mx-auto max-w-3xl">
+            <p className="text-lg font-medium text-[var(--colorNeutral600)]">
+              Last updated: 18 March 2024
+            </p>
             <Reveal targets="[data-reveal]" stagger={0.06} y={16} duration={0.45}>
             <div className="mt-10 flex flex-col gap-10 text-[15px] leading-[26px] text-[var(--colorNeutral600)]">
               <section data-reveal>
@@ -134,7 +161,6 @@ export default function CookiePolicyPage() {
             </div>
             </Reveal>
           </div>
-        </div>
         </section>
       </main>
       <Footer />

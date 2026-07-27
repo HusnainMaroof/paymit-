@@ -109,9 +109,7 @@ export function Reveal({
                   stagger,
                   ease,
                   delay,
-                  clearProps: clearProps
-                    ? "transform,opacity,visibility"
-                    : undefined,
+                  ...(clearProps && { clearProps: "transform,opacity,visibility" }),
                 });
                 if (once && io) io.disconnect();
               }

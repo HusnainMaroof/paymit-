@@ -203,11 +203,11 @@ export function Hero() {
         ref={mobileRef}
         className="flex w-full flex-col items-center justify-between md:hidden"
         style={{
-          height: "90vh",
+          minHeight: "calc(100dvh - var(--headerNavOffset))",
           paddingLeft: "var(--layoutMargin)",
           paddingRight: "var(--layoutMargin)",
           paddingBottom: "var(--sectionPaddingY)",
-          paddingTop: "24px",
+          paddingTop: "16px",
         }}
       >
         {/* Hero Pill */}
@@ -215,7 +215,7 @@ export function Hero() {
 
 <div className="flex w-full max-w-[440px] flex-col gap-5">
            {/* Heading */}
-        <h1 data-hero className="self-start text-[40px] font-semibold leading-[38px] tracking-[-1px] text-[var(--colorTextPrimary)] pt-10"
+        <h1 data-hero className="self-start text-[40px] font-semibold leading-[38px] tracking-[-1px] text-[var(--colorTextPrimary)] pt-4"
           style={{ textWrap: "balance" }}
         >
           <span data-hero-word>Send</span>{" "}

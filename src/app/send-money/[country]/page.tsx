@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { getCorridor } from "@/data/corridors";
@@ -18,13 +19,24 @@ export function generateStaticParams() {
   ];
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ country: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ country: string }> }): Promise<Metadata> {
   const { country } = await params;
   const corridor = getCorridor(country);
   if (!corridor) return {};
+  const title = `Send Money to ${corridor.country} from UK`;
+  const description = `Send money to ${corridor.country} from the UK with Paymit. ${corridor.deliveryMethods.join(", ")}. Competitive exchange rates and low fees. Fast and secure transfers.`;
   return {
-    title: `${corridor.headline} | Paymit`,
-    description: corridor.description,
+    title,
+    description,
+    openGraph: {
+      title: `${title} | Paymit`,
+      description,
+      url: `https://paymit.co.uk/send-to/${corridor.slug}`,
+    },
+    twitter: {
+      title: `${title} | Paymit`,
+      description,
+    },
   };
 }
 

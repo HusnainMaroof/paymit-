@@ -79,35 +79,156 @@ const items = [
   },
 ];
 
-export function Faq() {
-  const [openId, setOpenId] = useState<string>("1");
-  const isFirstOpen = useRef(true);
+type FaqEntry = (typeof items)[number];
+
+function FaqItem({
+  item,
+  isOpen,
+  isDimmed,
+  onHoverStart,
+  onHoverEnd,
+}: {
+  item: FaqEntry;
+  isOpen: boolean;
+  isDimmed: boolean;
+  onHoverStart: () => void;
+  onHoverEnd: () => void;
+}) {
+  const numberRef = useRef<HTMLParagraphElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const sentencesRef = useRef<HTMLParagraphElement>(null);
+  const firstRun = useRef(true);
 
   useEffect(() => {
-    if (isFirstOpen.current) {
-      isFirstOpen.current = false;
+    if (firstRun.current) {
+      firstRun.current = false;
       return;
     }
-    if (!openId) return;
+    if (!isOpen) return;
 
-    const sentences = document.querySelectorAll<HTMLElement>(
-      `[data-accordion-content="${openId}"] [data-sentence]`,
-    );
-    if (!sentences.length) return;
+    const number = numberRef.current;
+    const title = titleRef.current;
+    const sentenceEls = sentencesRef.current
+      ? Array.from(
+          sentencesRef.current.querySelectorAll<HTMLElement>("[data-sentence]"),
+        )
+      : [];
+    if (!number || !title) return;
 
-    gsap.fromTo(
-      sentences,
-      { autoAlpha: 0 },
-      {
-        autoAlpha: 1,
-        duration: 0.35,
-        stagger: 0.06,
-        ease: "power2.out",
-        delay: 0.08,
-        clearProps: "opacity,visibility",
-      },
-    );
-  }, [openId]);
+    const mm = gsap.matchMedia();
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const tl = gsap.timeline();
+      // Question number — pop in with a slight overshoot
+      tl.fromTo(
+        number,
+        { scale: 0.5, autoAlpha: 0, y: -8 },
+        {
+          scale: 1,
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "back.out(2.6)",
+          clearProps: "transform,opacity,visibility",
+        },
+      )
+        // Question title — slide in from the right (bigger text → larger travel)
+        .fromTo(
+          title,
+          { x: 28, autoAlpha: 0 },
+          {
+            x: 0,
+            autoAlpha: 1,
+            duration: 0.55,
+            ease: "power3.out",
+            clearProps: "transform,opacity,visibility",
+          },
+          "-=0.32",
+        )
+        // Answer sentences — stagger reveal
+        .fromTo(
+          sentenceEls,
+          { autoAlpha: 0, y: 10 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.4,
+            stagger: 0.06,
+            ease: "power2.out",
+            clearProps: "transform,opacity,visibility",
+          },
+          "-=0.28",
+        );
+
+      return () => {
+        tl.kill();
+      };
+    });
+
+    return () => mm.revert();
+  }, [isOpen]);
+
+  return (
+    <AccordionItem
+      value={item.id}
+      data-reveal
+      onMouseEnter={onHoverStart}
+      onMouseLeave={onHoverEnd}
+      className={`group border-b-0 transition-[filter,opacity] duration-300 ease-out ${
+        isDimmed ? "blur-[1.5px] opacity-40 md:text-gray-300" : "blur-0 opacity-100"
+      }`}
+    >
+      <AccordionTrigger
+        className="text-left pl-6 py-4 pr-4 md:pl-14 overflow-hidden duration-200 hover:no-underline cursor-pointer -space-y-4 md:-space-y-6 data-[state=open]:space-y-0 data-[state=open]:text-[var(--colorTextPrimary)] group-hover:text-[var(--colorBrand300)]"
+        indicator={
+          <svg
+            className="size-5 md:size-6 shrink-0 self-center text-[var(--colorNeutral400)] transition-all duration-300 ease-out group-hover:text-[var(--colorBrand300)] group-data-[state=open]:text-[var(--colorBrand300)]"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        }
+      >
+        <div className="flex flex-1 items-start gap-4">
+          <p
+            ref={numberRef}
+            className="shrink-0 md:pt-2 font-mono text-xs transition-colors duration-200 group-data-[state=open]:text-[var(--colorBrand300)]"
+          >
+            {item.id}
+          </p>
+          <h2
+            ref={titleRef}
+            className={`uppercase relative   text-2xl md:text-5xl  leading-[1.1] tracking-[-0.5px] transition-colors duration-200 group-data-[state=open]:text-[var(--colorBrand300)]  `}
+          >
+            {item.title}
+          </h2>
+        </div>
+      </AccordionTrigger>
+
+      <AccordionContent className="text-muted-foreground md:pt-3 md:pb-4 pl-12 pr-4 md:pl-20 md:pr-10">
+        <p
+          ref={sentencesRef}
+          data-accordion-content={item.id}
+          className="text-[12px] md:text-[18px]  font-semibold leading-[1.7] text-[var(--colorNeutral600)] md:max-w-[640px]"
+        >
+          {splitSentences(item.content).map((s, i) => (
+            <span key={i} data-sentence>
+              {s}{" "}
+            </span>
+          ))}
+        </p>
+      </AccordionContent>
+    </AccordionItem>
+  );
+}
+
+export function Faq() {
+  const [openId, setOpenId] = useState<string>("1");
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   return (
     <section
@@ -119,20 +240,20 @@ export function Faq() {
     >
       {/* Header */}
       <Reveal targets="[data-reveal]" stagger={0.07} duration={0.7} y={24}>
-        <div data-reveal className="mx-auto max-w-3xl text-center">
+        <div data-reveal className="w-full text-left">
           <h1
-            className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px] max-lg:tracking-[-1.3px]"
-            style={{ textWrap: "balance" }}
+            className="text-[64px] font-semibold leading-[0.95] tracking-[-2px] text-[var(--colorTextPrimary)] max-lg:text-[48px] max-lg:tracking-[-1.5px] max-md:text-[40px] max-sm:text-[32px]"
           >
-            Frequently Asked{" "}
-            <span className="text-[var(--colorTextActionPrimary)]">
+            <span className="block">Frequently</span>
+            <span className="block">Asked</span>
+            <span className="block text-[var(--colorTextActionPrimary)]">
               Questions
             </span>
           </h1>
         </div>
 
         {/* Accordion */}
-        <div className="mx-auto mt-16 w-full max-w-5xl">
+        <div className="mt-16 w-full">
           <Accordion
             type="single"
             value={openId}
@@ -141,36 +262,14 @@ export function Faq() {
             className="w-full"
           >
             {items.map((item) => (
-              <AccordionItem
-                value={item.id}
+              <FaqItem
                 key={item.id}
-                data-reveal
-                className="border-b border-[var(--colorBorderLight)]"
-              >
-                <AccordionTrigger className="group flex w-full items-center justify-between gap-4 py-5 pl-6 pr-4 text-left md:pl-14 cursor-pointer no-underline hover:no-underline">
-                  <div className="flex flex-1 items-start gap-4">
-                    <span className="shrink-0 pt-1 font-mono text-[11px] text-[var(--colorNeutral400)] transition-colors duration-200 group-data-[state=open]:text-[var(--colorBrand300)]">
-                      {item.id}
-                    </span>
-                    <span className="text-[18px] font-semibold leading-[1.3] tracking-[-0.3px] text-[var(--colorNeutral400)] transition-colors duration-200 group-data-[state=open]:text-[var(--colorTextPrimary)] max-md:text-[16px]">
-                      {item.title}
-                    </span>
-                  </div>
-                </AccordionTrigger>
-
-                <AccordionContent className="pb-6 pl-6 pr-4 md:pl-20 md:pr-10">
-                  <p
-                    data-accordion-content={item.id}
-                    className="text-[16px] font-semibold leading-[1.7] text-[var(--colorNeutral600)] md:max-w-[640px]"
-                  >
-                    {splitSentences(item.content).map((s, i) => (
-                      <span key={i} data-sentence>
-                        {s}{" "}
-                      </span>
-                    ))}
-                  </p>
-                </AccordionContent>
-              </AccordionItem>
+                item={item}
+                isOpen={openId === item.id}
+                isDimmed={hoveredId !== null && hoveredId !== item.id}
+                onHoverStart={() => setHoveredId(item.id)}
+                onHoverEnd={() => setHoveredId(null)}
+              />
             ))}
           </Accordion>
         </div>

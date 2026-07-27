@@ -1,12 +1,24 @@
+import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
 import { Reveal } from "@/components/reveal";
 
-export const metadata = {
-  title: "Contact Us | Paymit",
+export const metadata: Metadata = {
+  title: "Contact Us",
   description:
-    "Get in touch with Paymit — email or WhatsApp.",
+    "Get in touch with Paymit for support. Email us at support@paymit.co.uk or reach us by phone at (+44)7577 220592. We're here to help with your money transfer questions.",
+  openGraph: {
+    title: "Contact Us | Paymit",
+    description:
+      "Get in touch with Paymit for support. Email us at support@paymit.co.uk or reach us by phone.",
+    url: "https://paymit.co.uk/contact-us",
+  },
+  twitter: {
+    title: "Contact Us | Paymit",
+    description:
+      "Get in touch with Paymit for support. Email us at support@paymit.co.uk or reach us by phone.",
+  },
 };
 
 const contactChannels = [
@@ -21,7 +33,7 @@ const contactChannels = [
     value: "support@paymit.co.uk",
     href: "mailto:support@paymit.co.uk",
     note: "We aim to respond within 24 hours",
-    color: "#0078D4", // Microsoft Blue / Email blue
+    color: "#0078D4",
     bgColor: "rgba(0, 120, 212, 0.1)",
   },
   {
@@ -31,10 +43,10 @@ const contactChannels = [
       </svg>
     ),
     label: "WhatsApp",
-    value: "+44 7723 957734",
-    href: "https://wa.me/447723957734",
+    value: "+44 7577 220592",
+    href: "https://wa.me/447577220592",
     note: "Quick replies during business hours",
-    color: "#25D366", // WhatsApp Green
+    color: "#25D366",
     bgColor: "rgba(37, 211, 102, 0.1)",
   },
 ];
@@ -47,7 +59,7 @@ export default function ContactUsPage() {
         {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full"
+            className="mx-auto w-full flex justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
@@ -58,13 +70,13 @@ export default function ContactUsPage() {
               style={{ textWrap: "balance", maxWidth: "720px" }}
             >
               Contact{" "}
-              <span className="text-[var(--colorTextActionPrimary)]">Us</span>
+              <span className="text-[var(--colorTextActionPrimary)] block">Us</span>
             </h1>
             <p
-              className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2"
+              className="text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
               style={{ textWrap: "balance" }}
             >
-              Have a question or need help? We&apos;re here for you.
+              Have a question or need help? <br /> We&apos;re here for you via email <br /> or WhatsApp.
             </p>
           </div>
         </section>

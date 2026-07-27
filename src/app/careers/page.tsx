@@ -1,12 +1,24 @@
+import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
 import { Reveal } from "@/components/reveal";
 
-export const metadata = {
-  title: "Careers | Paymit",
+export const metadata: Metadata = {
+  title: "Careers",
   description:
-    "Join the Paymit team and help build the future of international money transfers.",
+    "Join the Paymit team and help build the future of international money transfers. We're a small, passionate team based in London.",
+  openGraph: {
+    title: "Careers | Paymit",
+    description:
+      "Join the Paymit team and help build the future of international money transfers.",
+    url: "https://paymit.co.uk/careers",
+  },
+  twitter: {
+    title: "Careers | Paymit",
+    description:
+      "Join the Paymit team and help build the future of international money transfers.",
+  },
 };
 
 export default function CareersPage() {
@@ -17,7 +29,7 @@ export default function CareersPage() {
         {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full"
+            className="mx-auto w-full flex justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
@@ -28,14 +40,13 @@ export default function CareersPage() {
               style={{ textWrap: "balance", maxWidth: "720px" }}
             >
               Careers at{" "}
-              <span className="text-[var(--colorTextActionPrimary)]">Paymit</span>
+              <span className="text-[var(--colorTextActionPrimary)] block">Paymit</span>
             </h1>
             <p
-              className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2"
+              className="text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
               style={{ textWrap: "balance" }}
             >
-              We&apos;re building the future of international money transfers
-              with a small, passionate team.
+              We&apos;re building the future of <br /> international money transfers <br /> with a small, passionate team.
             </p>
           </div>
         </section>

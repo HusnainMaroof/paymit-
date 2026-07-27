@@ -1,12 +1,24 @@
+import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
 import { Reveal } from "@/components/reveal";
 
-export const metadata = {
-  title: "Help Centre | Paymit",
+export const metadata: Metadata = {
+  title: "Help Centre",
   description:
-    "Find answers to common questions about Paymit — getting started, payments, ID verification, and more.",
+    "Find answers to common questions about Paymit — getting started, making payments, ID verification, account security, and more. Contact our support team for help.",
+  openGraph: {
+    title: "Help Centre | Paymit",
+    description:
+      "Find answers to common questions about Paymit — getting started, making payments, ID verification, account security, and more.",
+    url: "https://paymit.co.uk/help-center",
+  },
+  twitter: {
+    title: "Help Centre | Paymit",
+    description:
+      "Find answers to common questions about Paymit — getting started, making payments, ID verification, account security, and more.",
+  },
 };
 
 const faqSections = [
@@ -74,7 +86,7 @@ const faqSections = [
       },
       {
         q: "What should I do if I notice suspicious activity?",
-        a: "Contact our support team immediately at support@paymit.co.uk or call +44 7723 957734. We'll secure your account and investigate right away.",
+        a: "Contact our support team immediately at support@paymit.co.uk or call +44 7577 220592. We'll secure your account and investigate right away.",
       },
     ],
   },
@@ -83,7 +95,7 @@ const faqSections = [
     questions: [
       {
         q: "How can I contact support?",
-        a: "You can reach us via:\n• Email: support@paymit.co.uk\n• Phone: +44 7723 957734\n• WhatsApp: +44 7723 957734\n• Contact form on our website",
+        a: "You can reach us via:\n• Email: support@paymit.co.uk\n• Phone: +44 7577 220592\n• WhatsApp: +44 7577 220592\n• Contact form on our website",
       },
       {
         q: "What are your support hours?",
@@ -101,7 +113,7 @@ export default function HelpCenterPage() {
         {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full"
+            className="mx-auto w-full flex justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
@@ -112,13 +124,13 @@ export default function HelpCenterPage() {
               style={{ textWrap: "balance", maxWidth: "720px" }}
             >
               Help{" "}
-              <span className="text-[var(--colorTextActionPrimary)]">Centre</span>
+              <span className="text-[var(--colorTextActionPrimary)] block">Centre</span>
             </h1>
             <p
-              className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2"
+              className="text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
               style={{ textWrap: "balance" }}
             >
-              Find answers to common questions or get in touch with our team.
+              Find answers to common questions <br /> or get in touch with our <br /> support team.
             </p>
           </div>
         </section>

@@ -133,7 +133,7 @@ function CountryPill({
   const xPushDesktop = [300, 250, 200, 150, 80, 0, 80, 150, 200, 250, 300];
   const alphasDesktop = Array(11).fill(1);
 
-  const ROW = 54;
+  const ROW = 84;
   const scalesMobile = Array(11).fill(1);
   const zSpreadMobile = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5].map(
     (n) => n * ROW,
@@ -302,14 +302,14 @@ export function Partners() {
           background: "var(--colorBrand900)",
           clipPath,
           boxShadow: "0 28px 56px 0 hsla(0,0%,9%,.08)",
-          height: "clamp(440px, 65vh, 680px)",
+          height: "clamp(560px, 82vh, 700px)",
         }}
       >
         {/* Inner content wrapper — this is what rises/scales/fades on
            scroll (contentY/contentScale/contentOpacity). The glyph must
            NOT live inside here, or it inherits that animation. */}
         <motion.div
-          className="flex h-full w-full flex-col items-center justify-center gap-6 md:flex-row md:items-center md:justify-between md:gap-0"
+          className="flex h-full w-full flex-col items-center justify-between gap-6 md:flex-row md:items-center md:justify-between md:gap-0"
           style={{
             y: contentY,
             scale: contentScale,
@@ -317,10 +317,10 @@ export function Partners() {
             transformOrigin: "50% 0%",
           }}
         >
-          <div className="z-20 w-full max-w-lg px-4 text-center md:px-0 md:text-left">
+          <div className="z-20 w-full max-w-lg px-4 py-10 md:px-0 md:text-left">
             <h2
-              className="text-[26px] font-bold leading-[1.1] tracking-[-0.5px] text-white md:text-[44px] md:leading-[1.05] md:tracking-[-1.4px] lg:text-[66px]"
-    
+              className="text-[36px] font-bold leading-[1.1] tracking-[-0.5px] text-white md:text-[44px] md:leading-[1.05] md:tracking-[-1.4px] lg:text-[66px]"
+              style={{ textWrap: "balance" }}
             >
               Send money <br /> to{" "}  {CURRENCIES.length}+ <br />
               <span className="text-[var(--colorBrand300)]">
@@ -332,17 +332,8 @@ export function Partners() {
             </p>
           </div>
 
-          {/* Spacer only — invisible, mobile-only. Holds the gap in the
-             flex column where the glyph visually sits, so removing the
-             real glyph from this animated wrapper doesn't collapse the
-             spacing between heading and list. */}
           <div
-            className="h-16 w-16 shrink-0 opacity-0 md:hidden"
-            aria-hidden="true"
-          />
-
-          <div
-            className="relative z-20 h-[360px] w-full md:absolute md:right-[30%] md:top-1/2 md:h-full"
+            className="relative z-20 h-[300px] w-full md:absolute md:right-[30%] md:top-1/2 md:h-full overflow-hidden md:overflow-visible"
             {...handlers}
           >
             {CURRENCIES.map((c, i) => (

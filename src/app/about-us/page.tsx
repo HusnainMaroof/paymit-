@@ -1,12 +1,24 @@
+import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
 import { Reveal } from "@/components/reveal";
 
-export const metadata = {
-  title: "About Us | Paymit",
+export const metadata: Metadata = {
+  title: "About Us",
   description:
-    "Learn about Paymit Limited — a UK-regulated payment service provider bringing money remittance into the digital age.",
+    "Paymit is a UK FCA-regulated payment service provider. Learn how we make international money transfers fast, affordable, and secure for families worldwide.",
+  openGraph: {
+    title: "About Us | Paymit",
+    description:
+      "Paymit is a UK FCA-regulated payment service provider. Learn how we make international money transfers fast, affordable, and secure for families worldwide.",
+    url: "https://paymit.co.uk/about-us",
+  },
+  twitter: {
+    title: "About Us | Paymit",
+    description:
+      "Paymit is a UK FCA-regulated payment service provider. Learn how we make international money transfers fast, affordable, and secure for families worldwide.",
+  },
 };
 
 export default function AboutUsPage() {
@@ -17,7 +29,7 @@ export default function AboutUsPage() {
         {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full"
+            className="mx-auto w-full md:flex  justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
@@ -28,14 +40,14 @@ export default function AboutUsPage() {
               style={{ textWrap: "balance", maxWidth: "720px" }}
             >
               About{" "}
-              <span className="text-[var(--colorTextActionPrimary)]">Paymit</span>
+              <span className="text-[var(--colorTextActionPrimary)] block">Paymit</span>
             </h1>
             <p
-              className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2"
+              className="mt-2.5 text-4xl pt-10 font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2 pr-10"
               style={{ textWrap: "balance" }}
             >
-              Bringing money remittance into the digital age — fast, affordable,
-              and completely secure.
+              Bringing money remittance into <br /> the digital age — fast, affordable,
+              and <br /> completely secure.
             </p>
           </div>
         </section>

@@ -1,12 +1,22 @@
+import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
 import { Reveal } from "@/components/reveal";
 
-export const metadata = {
-  title: "Privacy Policy | Paymit",
+export const metadata: Metadata = {
+  title: "Privacy Policy",
   description:
-    "Paymit Limited Privacy Policy — how we collect, use, and protect your personal data.",
+    "Paymit Limited Privacy Policy — how we collect, use, store, and protect your personal data in compliance with UK GDPR and data protection laws.",
+  openGraph: {
+    title: "Privacy Policy | Paymit",
+    description:
+      "Paymit Limited Privacy Policy — how we collect, use, store, and protect your personal data.",
+    url: "https://paymit.co.uk/privacy-policy",
+  },
+  robots: {
+    index: false,
+  },
 };
 
 export default function PrivacyPolicyPage() {
@@ -14,25 +24,42 @@ export default function PrivacyPolicyPage() {
     <>
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
+        {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full"
+            className="mx-auto w-full flex justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
             }}
           >
-            <div className="mx-auto max-w-3xl">
-              <h1
-                className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
-                style={{ textWrap: "balance", maxWidth: "720px" }}
-              >
-                Privacy{" "}
-                <span className="text-[var(--colorTextActionPrimary)]">Policy</span>
-              </h1>
-              <p className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2">
-                Last updated: 18 March 2024
-              </p>
+            <h1
+              className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
+              style={{ textWrap: "balance", maxWidth: "720px" }}
+            >
+              Privacy{" "}
+              <span className="text-[var(--colorTextActionPrimary)] block">Policy</span>
+            </h1>
+            <p
+              className="text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
+              style={{ textWrap: "balance" }}
+            >
+              How we collect, use, and protect<br />your personal data when you<br />use our services.
+            </p>
+          </div>
+        </section>
+
+        <section
+          className="mx-auto w-full"
+          style={{
+            maxWidth: "var(--layoutMaxWidth)",
+            padding: "0 var(--layoutMargin) var(--sectionPaddingY)",
+          }}
+        >
+          <div className="mx-auto max-w-3xl">
+            <p className="text-lg font-medium text-[var(--colorNeutral600)]">
+              Last updated: 18 March 2024
+            </p>
 <div className="mt-10 flex flex-col gap-10 text-[15px] leading-[26px] text-[var(--colorNeutral600)]">
               <Reveal targets="[data-reveal]" stagger={0.08} y={16} duration={0.5}>
               {[
@@ -173,7 +200,6 @@ export default function PrivacyPolicyPage() {
               </Reveal>
             </div>
           </div>
-        </div>
         </section>
       </main>
       <Footer />

@@ -1,12 +1,22 @@
+import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
 import { Reveal } from "@/components/reveal";
 
-export const metadata = {
-  title: "Terms of Service | Paymit",
+export const metadata: Metadata = {
+  title: "Terms of Service",
   description:
-    "Paymit Limited Terms of Service — rules and conditions governing use of our platform.",
+    "Paymit Limited Terms of Service — rules and conditions governing use of our international money transfer platform and services.",
+  openGraph: {
+    title: "Terms of Service | Paymit",
+    description:
+      "Paymit Limited Terms of Service — rules and conditions governing use of our platform and services.",
+    url: "https://paymit.co.uk/terms-of-service",
+  },
+  robots: {
+    index: false,
+  },
 };
 
 export default function TermsOfServicePage() {
@@ -14,25 +24,42 @@ export default function TermsOfServicePage() {
     <>
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
+        {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full"
+            className="mx-auto w-full flex justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
             }}
           >
-            <div className="mx-auto max-w-3xl">
-              <h1
-                className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
-                style={{ textWrap: "balance", maxWidth: "720px" }}
-              >
-                Terms of{" "}
-                <span className="text-[var(--colorTextActionPrimary)]">Service</span>
-              </h1>
-              <p className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2">
-                Last updated: 18 March 2024
-              </p>
+            <h1
+              className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
+              style={{ textWrap: "balance", maxWidth: "720px" }}
+            >
+              Terms of{" "}
+              <span className="text-[var(--colorTextActionPrimary)] block">Service</span>
+            </h1>
+            <p
+              className="text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
+              style={{ textWrap: "balance" }}
+            >
+              Rules and conditions governing<br />the use of the Paymit<br />platform and services.
+            </p>
+          </div>
+        </section>
+
+        <section
+          className="mx-auto w-full"
+          style={{
+            maxWidth: "var(--layoutMaxWidth)",
+            padding: "0 var(--layoutMargin) var(--sectionPaddingY)",
+          }}
+        >
+          <div className="mx-auto max-w-3xl">
+            <p className="text-lg font-medium text-[var(--colorNeutral600)]">
+              Last updated: 18 March 2024
+            </p>
             <Reveal targets="[data-reveal]" stagger={0.08} y={16} duration={0.5}>
             <div className="mt-10 flex flex-col gap-10 text-[15px] leading-[26px] text-[var(--colorNeutral600)]">
               <section data-reveal>
@@ -135,7 +162,7 @@ export default function TermsOfServicePage() {
                   If you have any questions about these Terms, please contact
                   us at{" "}
                   <a
-                    href="mailto:suppor@paymit.co.uk"
+                    href="mailto:support@paymit.co.uk"
                     className="font-medium text-[var(--colorTextActionPrimary)] underline-offset-4 hover:underline"
                   >
                     support@paymit.co.uk
@@ -146,7 +173,6 @@ export default function TermsOfServicePage() {
             </div>
             </Reveal>
           </div>
-        </div>
         </section>
       </main>
       <Footer />

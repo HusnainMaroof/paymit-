@@ -1,12 +1,24 @@
+import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
 import { Reveal } from "@/components/reveal";
 
-export const metadata = {
-  title: "Promotions | Paymit",
+export const metadata: Metadata = {
+  title: "Promotions",
   description:
-    "Explore Paymit promotions — send your first transfer fee-free and earn rewards by referring friends.",
+    "Send your first transfer fee-free with Paymit and earn £5 for every friend you refer. Exclusive offers for new and existing customers on international money transfers.",
+  openGraph: {
+    title: "Promotions | Paymit",
+    description:
+      "Send your first transfer fee-free with Paymit and earn £5 for every friend you refer. Exclusive offers for international money transfers.",
+    url: "https://paymit.co.uk/promotions",
+  },
+  twitter: {
+    title: "Promotions | Paymit",
+    description:
+      "Send your first transfer fee-free with Paymit and earn £5 for every friend you refer.",
+  },
 };
 
 export default function PromotionsPage() {
@@ -17,7 +29,7 @@ export default function PromotionsPage() {
         {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full"
+            className="mx-auto w-full flex justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
@@ -27,16 +39,13 @@ export default function PromotionsPage() {
               className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
               style={{ textWrap: "balance", maxWidth: "720px" }}
             >
-              {" "}
-              <span className="text-[var(--colorTextActionPrimary)]">
-                Promotions
-              </span>
+              <span className="text-[var(--colorTextActionPrimary)]">Promotions</span>
             </h1>
             <p
-              className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2"
+              className="text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
               style={{ textWrap: "balance" }}
             >
-              Exclusive offers to make your money transfers even better.
+              Exclusive offers to make your <br /> money transfers even better <br /> and more rewarding.
             </p>
           </div>
         </section>

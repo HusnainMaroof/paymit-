@@ -131,15 +131,20 @@ export function HowItWorks() {
 
     mainTl.current = tl;
 
-    const humanType = (str: string | undefined, startTime: number, setter: (s: string) => void) => {
+    const humanType = (
+      str: string | undefined,
+      startTime: number,
+      setter: (s: string) => void,
+    ) => {
       if (!str) return startTime;
       let t = startTime;
       str.split("").forEach((ch, i) => {
-        const dur = 0.035 + Math.random() * 0.03 + (ch === "@" || ch === "." ? 0.07 : 0);
+        const dur =
+          0.035 + Math.random() * 0.03 + (ch === "@" || ch === "." ? 0.07 : 0);
         tl.to(
           {},
           { duration: dur, onComplete: () => setter(str.slice(0, i + 1)) },
-          `step1+=${t.toFixed(3)}`
+          `step1+=${t.toFixed(3)}`,
         );
         t += dur;
       });
@@ -152,7 +157,11 @@ export function HowItWorks() {
     tl.addLabel("step1", 0);
     let t1 = 0;
 
-    tl.to(card1Ref.current, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power3.out" }, `step1+=${t1}`);
+    tl.to(
+      card1Ref.current,
+      { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power3.out" },
+      `step1+=${t1}`,
+    );
 
     t1 = 0.25;
 
@@ -170,7 +179,11 @@ export function HowItWorks() {
     dwellJitter(`step1+=${t1.toFixed(3)}`, DWELL);
     t1 += DWELL;
     triggerClick(`step1+=${t1.toFixed(3)}`, passwordInputRef);
-    tl.to({}, { duration: 0.05, onComplete: () => setIsPasswordEntered(true) }, `step1+=${t1.toFixed(3)}`);
+    tl.to(
+      {},
+      { duration: 0.05, onComplete: () => setIsPasswordEntered(true) },
+      `step1+=${t1.toFixed(3)}`,
+    );
     t1 += 0.35;
 
     t1 += 0.15;
@@ -179,7 +192,11 @@ export function HowItWorks() {
     dwellJitter(`step1+=${t1.toFixed(3)}`, DWELL);
     t1 += DWELL;
     triggerClick(`step1+=${t1.toFixed(3)}`, signUpBtnRef);
-    tl.to({}, { duration: 0.05, onComplete: () => setIsSigningUp(true) }, `step1+=${t1.toFixed(3)}`);
+    tl.to(
+      {},
+      { duration: 0.05, onComplete: () => setIsSigningUp(true) },
+      `step1+=${t1.toFixed(3)}`,
+    );
     t1 += 0.35;
 
     t1 += 0.4;
@@ -194,21 +211,33 @@ export function HowItWorks() {
           setIsSignedUp(true);
         },
       },
-      `step1+=${t1.toFixed(3)}`
+      `step1+=${t1.toFixed(3)}`,
     );
     t1 += 0.22;
 
     t1 += 0.2;
     t1 += 0.05;
-    tl.to(card1Ref.current, { opacity: 0, scale: 0.92, y: -20, duration: 0.45, ease: "power2.in" }, `step1+=${t1.toFixed(3)}`);
+    tl.to(
+      card1Ref.current,
+      { opacity: 0, scale: 0.92, y: -20, duration: 0.45, ease: "power2.in" },
+      `step1+=${t1.toFixed(3)}`,
+    );
     t1 += 0.45;
 
     // ===================== STEP 2 — Send Money =====================
     tl.addLabel("step2", `step1+=${(t1 + 0.35).toFixed(3)}`);
     let t2 = 0;
 
-    tl.to(card2Ref.current, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power3.out" }, `step2+=${t2}`);
-    tl.to(rateBadgeRef.current, { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.8)" }, `step2+=${(t2 + 0.25).toFixed(3)}`);
+    tl.to(
+      card2Ref.current,
+      { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power3.out" },
+      `step2+=${t2}`,
+    );
+    tl.to(
+      rateBadgeRef.current,
+      { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.8)" },
+      `step2+=${(t2 + 0.25).toFixed(3)}`,
+    );
 
     t2 = 0.4;
 
@@ -230,7 +259,7 @@ export function HowItWorks() {
           setReceiveAmount(Math.round(counterObj.receive));
         },
       },
-      `step2+=${t2.toFixed(3)}`
+      `step2+=${t2.toFixed(3)}`,
     );
     t2 += 1.15;
 
@@ -243,7 +272,7 @@ export function HowItWorks() {
     tl.to(
       recipientDropdownRef.current,
       { opacity: 1, y: 0, scale: 1, duration: 0.2, ease: "back.out(1.6)" },
-      `step2+=${t2.toFixed(3)}`
+      `step2+=${t2.toFixed(3)}`,
     );
     t2 += 0.2;
     t2 += 0.3;
@@ -257,7 +286,7 @@ export function HowItWorks() {
         ease: "power1.in",
         onStart: () => setIsRecipientSelected(true),
       },
-      `step2+=${t2.toFixed(3)}`
+      `step2+=${t2.toFixed(3)}`,
     );
     t2 += 0.18;
 
@@ -267,7 +296,11 @@ export function HowItWorks() {
     dwellJitter(`step2+=${t2.toFixed(3)}`, DWELL);
     t2 += DWELL;
     triggerClick(`step2+=${t2.toFixed(3)}`, sendBtnRef);
-    tl.to({}, { duration: 0.05, onComplete: () => setIsSending(true) }, `step2+=${t2.toFixed(3)}`);
+    tl.to(
+      {},
+      { duration: 0.05, onComplete: () => setIsSending(true) },
+      `step2+=${t2.toFixed(3)}`,
+    );
     t2 += 0.35;
 
     t2 += 0.45;
@@ -282,23 +315,37 @@ export function HowItWorks() {
           setIsSent(true);
         },
       },
-      `step2+=${t2.toFixed(3)}`
+      `step2+=${t2.toFixed(3)}`,
     );
     t2 += 0.22;
 
     t2 += 0.2;
     t2 += 0.05;
-    tl.to(card2Ref.current, { opacity: 0, scale: 0.92, y: -20, duration: 0.45, ease: "power2.in" }, `step2+=${t2.toFixed(3)}`);
+    tl.to(
+      card2Ref.current,
+      { opacity: 0, scale: 0.92, y: -20, duration: 0.45, ease: "power2.in" },
+      `step2+=${t2.toFixed(3)}`,
+    );
     t2 += 0.45;
 
     // ===================== STEP 3 — Money Sent =====================
     tl.addLabel("step3", `step2+=${(t2 + 0.35).toFixed(3)}`);
 
-    tl.to(card3Ref.current, { opacity: 1, scale: 1, y: 0, duration: 0.65, ease: "power3.out" }, "step3");
+    tl.to(
+      card3Ref.current,
+      { opacity: 1, scale: 1, y: 0, duration: 0.65, ease: "power3.out" },
+      "step3",
+    );
     tl.to(
       successCheckRef.current,
-      { opacity: 1, scale: 1, rotation: 0, duration: 0.75, ease: "back.out(2.2)" },
-      "step3+=0.25"
+      {
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        duration: 0.75,
+        ease: "back.out(2.2)",
+      },
+      "step3+=0.25",
     );
 
     tl.to({}, { duration: 2.6 });
@@ -313,19 +360,25 @@ export function HowItWorks() {
   function dwellJitter(atTime: string, duration: number) {
     const tl = mainTl.current;
     if (!tl) return;
-    tl.to(
-      {},
-      { duration: duration, ease: "sine.inOut" },
-      atTime
-    );
+    tl.to({}, { duration: duration, ease: "sine.inOut" }, atTime);
   }
 
-  function triggerClick(atTime: string, elementRef: React.RefObject<HTMLElement | null> | null) {
+  function triggerClick(
+    atTime: string,
+    elementRef: React.RefObject<HTMLElement | null> | null,
+  ) {
     const tl = mainTl.current;
     if (!tl) return;
     if (elementRef && elementRef.current) {
-      tl.to(elementRef.current, { scale: 0.97, duration: 0.08, ease: "power1.in" }, atTime)
-        .to(elementRef.current, { scale: 1, duration: 0.14, ease: "power2.out" }, `${atTime}+=0.1`);
+      tl.to(
+        elementRef.current,
+        { scale: 0.97, duration: 0.08, ease: "power1.in" },
+        atTime,
+      ).to(
+        elementRef.current,
+        { scale: 1, duration: 0.14, ease: "power2.out" },
+        `${atTime}+=0.1`,
+      );
     }
   }
 
@@ -345,7 +398,7 @@ export function HowItWorks() {
           }
         });
       },
-      { threshold: 0.4 }
+      { threshold: 0.4 },
     );
 
     observer.observe(sectionEl);
@@ -383,16 +436,13 @@ export function HowItWorks() {
               <span className="text-[var(--colorTextActionPrimary)]">3 Easy Steps</span>
             </h1> */}
 
-               <h2
-                          className="text-[26px] font-bold leading-[1.1] tracking-[-0.5px] text-black md:text-[44px] md:leading-[1.05] md:tracking-[-1.4px] lg:text-[66px]"
-                
-                        >
-                           Send <br /> Money {" "} <br />
-                          <span className="text-[var(--colorBrand300)]">
-                            In 3 Easy <br />
-                          Steps
-                          </span>
-                        </h2>
+            <h2 className="text-[36px] font-bold leading-[1.1] tracking-[-0.5px] text-black md:text-[44px] md:leading-[1.05] md:tracking-[-1.4px] lg:text-[66px]" style={{ textWrap: "balance" }}>
+              Send <br /> Money <br />
+              <span className="text-[var(--colorBrand300)]">
+                In 3 Easy <br />
+                Steps
+              </span>
+            </h2>
             <p className="mt-2.5 text-lg font-semibold leading-[26px] text-black">
               Fast, simple, and secure. From account creation to delivery, we
               handle every step effortlessly.
@@ -459,9 +509,15 @@ export function HowItWorks() {
                       className="flex size-4 items-center justify-center rounded-full text-[10px] font-bold"
                       style={
                         isCompleted
-                          ? { backgroundColor: "var(--colorBrand300)", color: "#fff" }
+                          ? {
+                              backgroundColor: "var(--colorBrand300)",
+                              color: "#fff",
+                            }
                           : isActive
-                            ? { backgroundColor: "#fff", color: "var(--colorBrand900)" }
+                            ? {
+                                backgroundColor: "#fff",
+                                color: "var(--colorBrand900)",
+                              }
                             : {
                                 backgroundColor: "var(--colorNeutral100)",
                                 color: "var(--colorNeutral400)",
@@ -516,7 +572,9 @@ export function HowItWorks() {
                       }`}
                     >
                       <Mail className="size-3.5 text-[var(--colorNeutral400)]" />
-                      <span className="text-[var(--colorTextPrimary)]">{typedEmail}</span>
+                      <span className="text-[var(--colorTextPrimary)]">
+                        {typedEmail}
+                      </span>
                       {typedEmail.length > 0 && typedEmail.length < 21 && (
                         <span className="inline-block h-3.5 w-1 animate-pulse bg-[var(--colorBrand900)]" />
                       )}
@@ -538,7 +596,9 @@ export function HowItWorks() {
                       <div className="flex items-center gap-2">
                         <Lock className="size-3.5 text-[var(--colorNeutral400)]" />
                         <span className="font-bold tracking-widest text-[var(--colorTextPrimary)]">
-                          {isPasswordEntered ? "••••••••••••" : "Enter password"}
+                          {isPasswordEntered
+                            ? "••••••••••••"
+                            : "Enter password"}
                         </span>
                       </div>
                       <ShieldCheck
@@ -613,7 +673,9 @@ export function HowItWorks() {
                   </div>
                   <div className="flex items-center gap-1.5 rounded-lg border border-[var(--colorBorderLight)] bg-white px-2.5 py-1">
                     <span className="text-base">🇬🇧</span>
-                    <span className="text-xs font-bold text-[var(--colorTextPrimary)]">GBP</span>
+                    <span className="text-xs font-bold text-[var(--colorTextPrimary)]">
+                      GBP
+                    </span>
                   </div>
                 </div>
 
@@ -621,7 +683,10 @@ export function HowItWorks() {
                   <div
                     ref={rateBadgeRef}
                     className="flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-bold text-[var(--colorBrand900)]"
-                    style={{ backgroundColor: "var(--colorBrand25)", borderColor: "var(--colorBrand100)" }}
+                    style={{
+                      backgroundColor: "var(--colorBrand25)",
+                      borderColor: "var(--colorBrand100)",
+                    }}
                   >
                     <ArrowDownUp className="size-3 text-[var(--colorBrand500)]" />
                     <span>1 GBP = 19.50 GHS (Zero Fees)</span>
@@ -639,7 +704,9 @@ export function HowItWorks() {
                   </div>
                   <div className="flex items-center gap-1.5 rounded-lg border border-[var(--colorBorderLight)] bg-white px-2.5 py-1">
                     <span className="text-base">🇬🇭</span>
-                    <span className="text-xs font-bold text-[var(--colorTextPrimary)]">GHS</span>
+                    <span className="text-xs font-bold text-[var(--colorTextPrimary)]">
+                      GHS
+                    </span>
                   </div>
                 </div>
 
@@ -652,7 +719,9 @@ export function HowItWorks() {
                         : "border-[var(--colorNeutral100)] bg-[var(--colorNeutral50)]"
                     }`}
                   >
-                    <span className="text-[var(--colorNeutral500)]">Recipient</span>
+                    <span className="text-[var(--colorNeutral500)]">
+                      Recipient
+                    </span>
                     {isRecipientSelected ? (
                       <span className="flex items-center gap-1 font-bold text-[var(--colorTextPrimary)]">
                         Kofi Mensah
@@ -735,9 +804,13 @@ export function HowItWorks() {
                   </h3>
                   <p className="mt-1 text-xs text-[var(--colorNeutral500)]">
                     Your transfer of{" "}
-                    <span className="font-bold text-[var(--colorTextPrimary)]">£500.00</span>{" "}
+                    <span className="font-bold text-[var(--colorTextPrimary)]">
+                      £500.00
+                    </span>{" "}
                     (GH₵ 9,750) to{" "}
-                    <span className="font-bold text-[var(--colorTextPrimary)]">Kofi Mensah</span>{" "}
+                    <span className="font-bold text-[var(--colorTextPrimary)]">
+                      Kofi Mensah
+                    </span>{" "}
                     is complete.
                   </p>
                 </div>
@@ -770,7 +843,9 @@ export function HowItWorks() {
               <button
                 onClick={restart}
                 className={`flex items-center gap-2 rounded-full border bg-white px-4 py-2 text-xs font-bold transition-all active:scale-95 hover:bg-[var(--colorNeutral50)] ${
-                  hasEnded ? "ring-2 ring-[var(--colorBrand300)]/50 animate-pulse" : ""
+                  hasEnded
+                    ? "ring-2 ring-[var(--colorBrand300)]/50 animate-pulse"
+                    : ""
                 }`}
                 style={{ borderColor: "var(--colorBorderLight)" }}
               >

@@ -1,12 +1,22 @@
+import type { Metadata } from "next";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
 import { Reveal } from "@/components/reveal";
 
-export const metadata = {
-  title: "Fraud Prevention Policy | Paymit",
+export const metadata: Metadata = {
+  title: "Fraud Prevention Policy",
   description:
-    "Paymit Limited Fraud Prevention Policy — how we detect, prevent, and respond to fraud.",
+    "Paymit Limited Fraud Prevention Policy — how we detect, prevent, and respond to fraud to keep your money and data safe.",
+  openGraph: {
+    title: "Fraud Prevention Policy | Paymit",
+    description:
+      "Paymit Limited Fraud Prevention Policy — how we detect, prevent, and respond to fraud.",
+    url: "https://paymit.co.uk/fraud-prevention-policy",
+  },
+  robots: {
+    index: false,
+  },
 };
 
 export default function FraudPreventionPolicyPage() {
@@ -14,25 +24,42 @@ export default function FraudPreventionPolicyPage() {
     <>
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
+        {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full"
+            className="mx-auto w-full flex justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
             }}
           >
-            <div className="mx-auto max-w-3xl">
-              <h1
-                className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
-                style={{ textWrap: "balance", maxWidth: "720px" }}
-              >
-                Fraud Prevention{" "}
-                <span className="text-[var(--colorTextActionPrimary)]">Policy</span>
-              </h1>
-              <p className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2">
-                Last updated: 18 March 2024
-              </p>
+            <h1
+              className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
+              style={{ textWrap: "balance", maxWidth: "720px" }}
+            >
+              Fraud Prevention{" "}
+              <span className="text-[var(--colorTextActionPrimary)] block">Policy</span>
+            </h1>
+            <p
+              className="text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
+              style={{ textWrap: "balance" }}
+            >
+              How we detect, prevent, and respond<br />to fraud to keep your money<br />and data safe.
+            </p>
+          </div>
+        </section>
+
+        <section
+          className="mx-auto w-full"
+          style={{
+            maxWidth: "var(--layoutMaxWidth)",
+            padding: "0 var(--layoutMargin) var(--sectionPaddingY)",
+          }}
+        >
+          <div className="mx-auto max-w-3xl">
+            <p className="text-lg font-medium text-[var(--colorNeutral600)]">
+              Last updated: 18 March 2024
+            </p>
             <Reveal targets="[data-reveal]" stagger={0.06} y={16} duration={0.45}>
             <div className="mt-10 flex flex-col gap-10 text-[15px] leading-[26px] text-[var(--colorNeutral600)]">
               <section data-reveal>
@@ -132,8 +159,8 @@ export default function FraudPreventionPolicyPage() {
                       support@paymit.co.uk
                     </a>
                   </li>
-                  <li>Phone: +44 7723 957734</li>
-                  <li>WhatsApp: +44 7723 957734</li>
+                  <li>Phone: +44 7577 220592</li>
+                  <li>WhatsApp: +44 7577 220592</li>
                 </ul>
                 <p className="mt-3">
                   We will investigate all reports promptly and take appropriate
@@ -172,7 +199,6 @@ export default function FraudPreventionPolicyPage() {
             </div>
             </Reveal>
           </div>
-        </div>
         </section>
       </main>
       <Footer />
