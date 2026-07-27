@@ -253,8 +253,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group relative inline-block cursor-pointer text-[13px] font-normal transition-all duration-150 hover:translate-x-1 hover:text-[var(--colorBrand300)]"
-                    style={{ color: "var(--colorNeutral600)" }}
+                    className="relative inline-block cursor-pointer text-[13px] font-normal text-[var(--colorNeutral600)] transition-all duration-150 hover:translate-x-1 hover:text-[var(--colorBrand300)]"
                   >
                     {link.label}
                   </Link>
@@ -276,8 +275,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group relative inline-block cursor-pointer text-[13px] font-normal transition-all duration-150 hover:translate-x-1 hover:text-[var(--colorBrand300)]"
-                    style={{ color: "var(--colorNeutral600)" }}
+                    className="relative inline-block cursor-pointer text-[13px] font-normal text-[var(--colorNeutral600)] transition-all duration-150 hover:translate-x-1 hover:text-[var(--colorBrand300)]"
                   >
                     {link.label}
                   </Link>
@@ -299,8 +297,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group relative inline-block cursor-pointer text-[13px] font-normal transition-all duration-150 hover:translate-x-1 hover:text-[var(--colorBrand300)]"
-                    style={{ color: "var(--colorNeutral600)" }}
+                    className="relative inline-block cursor-pointer text-[13px] font-normal text-[var(--colorNeutral600)] transition-all duration-150 hover:translate-x-1 hover:text-[var(--colorBrand300)]"
                   >
                     {link.label}
                   </Link>

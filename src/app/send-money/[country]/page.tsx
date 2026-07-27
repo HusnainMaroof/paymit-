@@ -38,12 +38,12 @@ export default async function SendMoneyCountryPage({ params }: { params: Promise
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
         {/* Hero */}
-        <section className="mx-auto w-full" style={{ maxWidth: "var(--layoutMaxWidth)", padding: "var(--sectionPaddingY) var(--layoutMargin)" }}>
-          <div className="mx-auto max-w-3xl text-center">
+        <section className="w-full">
+          <div className="mx-auto w-full" style={{ maxWidth: "var(--layoutMaxWidth)", padding: "var(--sectionPaddingY) var(--layoutMargin)" }}>
             <span className="inline-block rounded-full px-3 py-1 text-[12px] font-semibold" style={{ backgroundColor: "var(--colorBrand25)", color: "var(--colorBrand500)" }}>
               {corridor.region}
             </span>
-            <h1 className="mt-4 text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px]" style={{ textWrap: "balance" }}>
+            <h1 className="mt-4 text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]" style={{ textWrap: "balance", maxWidth: "720px" }}>
               {corridor.headline.split(" to ").map((part, i) => (
                 <span key={i}>
                   {i > 0 && " to "}
@@ -51,8 +51,15 @@ export default async function SendMoneyCountryPage({ params }: { params: Promise
                 </span>
               ))}
             </h1>
-            <p className="mt-6 text-[18px] font-medium leading-[28px] text-[var(--colorNeutral600)]" style={{ textWrap: "balance" }}>
-              {corridor.description}
+            <p className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2" style={{ textWrap: "balance", maxWidth: "720px" }}>
+              {corridor.description.split(". ").reduce((acc: React.ReactNode[], sentence, i, arr) => {
+                if (i === 0) return [sentence];
+                if (i === Math.ceil(arr.length / 2)) {
+                  return [...acc, <span key="break" className="block mt-1" />, sentence];
+                }
+                return [...acc, ". ", sentence];
+              }, [])}
+              {corridor.description.includes(".") ? "." : null}
             </p>
             <a href="https://app.paymit.co.uk/register" target="_blank" rel="noopener noreferrer" className="btn-morph mt-8 inline-flex h-12 items-center justify-center gap-2 rounded-[var(--borderRadiusSm)] px-8 text-[15px] font-medium text-white transition-all duration-200 hover:scale-[1.03] hover:bg-[var(--colorBrand850)] hover:shadow-md hover:shadow-[var(--colorBrand300)]/30" style={{ backgroundColor: "var(--colorBrand900)" }}>
               Send Money to {corridor.country}
@@ -87,24 +94,7 @@ export default async function SendMoneyCountryPage({ params }: { params: Promise
           </section>
         </SectionReveal>
 
-        {/* Benefits */}
-        <SectionReveal>
-          <section className="w-full" style={{ backgroundColor: "var(--colorNeutral50)" }}>
-          <div className="mx-auto w-full" style={{ maxWidth: "var(--layoutMaxWidth)", padding: "var(--sectionPaddingY) var(--layoutMargin)" }}>
-            <h2 className="text-[32px] font-semibold text-[var(--colorTextPrimary)] max-md:text-[28px]">Why Send with Paymit?</h2>
-            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
-              {corridor.benefits.map((benefit, i) => (
-                <div key={i} className="flex items-start gap-3 rounded-[var(--borderRadiusMd)] bg-white p-5" style={{ boxShadow: "var(--box-shadow-card)" }}>
-                  <div className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: "var(--colorBrand300)" }}>
-                    <svg className="size-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  </div>
-                  <span className="text-[15px] font-medium text-[var(--colorTextPrimary)]">{benefit}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          </section>
-        </SectionReveal>
+
       </main>
       <Footer />
     </>

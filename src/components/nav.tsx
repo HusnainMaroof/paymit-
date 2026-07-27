@@ -259,30 +259,23 @@ function DrawerLink({
 
 function NavDropdown({ item }: { item: NavDropdown }) {
   const [open, setOpen] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-  const handleEnter = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    setOpen(true);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => setVisible(true));
-    });
-  };
-
-  const handleLeave = () => {
-    setVisible(false);
-    timeoutRef.current = setTimeout(() => setOpen(false), 180);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
+  const handleClickOutside = useCallback((e: MouseEvent) => {
+    if (ref.current && !ref.current.contains(e.target as Node)) {
+      setOpen(false);
+    }
   }, []);
 
+  useEffect(() => {
+    if (open) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [open, handleClickOutside]);
+
   return (
-    <div className="relative" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+    <div className="relative" ref={ref}>
       <button
         className="btn-morph inline-flex h-10 cursor-pointer items-center gap-1 px-3 text-[14px] font-medium transition-colors duration-150 hover:bg-[var(--colorNeutral100)]"
         style={{ color: "var(--colorTextPrimary)" }}
@@ -290,7 +283,7 @@ function NavDropdown({ item }: { item: NavDropdown }) {
       >
         {item.label}
         <svg
-          className={`size-3.5 transition-transform duration-200 ${visible ? "rotate-180" : ""}`}
+          className={`size-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -302,36 +295,42 @@ function NavDropdown({ item }: { item: NavDropdown }) {
         </svg>
       </button>
 
-      {open && (
+      <div
+        className={`absolute left-0 top-full min-w-[180px] origin-top pt-1 transition-all duration-200 ${
+          open ? "translate-y-0 opacity-100" : "-translate-y-1 pointer-events-none opacity-0"
+        }`}
+      >
         <div
-          className={`absolute left-0 top-full min-w-[180px] origin-top pt-1 transition-all duration-200 ${
-            visible ? "translate-y-0 opacity-100" : "-translate-y-1 pointer-events-none opacity-0"
-          }`}
+          className="overflow-hidden rounded-[var(--borderRadiusXs)] border bg-white p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
+          style={{ borderColor: "var(--colorBorderLight)" }}
         >
-          <div
-            className="overflow-hidden rounded-[var(--borderRadiusXs)] border bg-white p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.12)]"
-            style={{ borderColor: "var(--colorBorderLight)" }}
-          >
-            {item.items.map((dest, i) => (
-              <Link
-                key={dest.href}
-                href={dest.href}
-                className="flex cursor-pointer items-center rounded-[8px] px-3 py-2 text-[14px] font-medium transition-all duration-150 hover:translate-x-0.5 hover:bg-[var(--colorNeutral100)]"
-                style={{
-                  color: "var(--colorTextPrimary)",
-                  animation: visible ? `fade-in-dropdown 0.2s ease-out ${i * 0.03}s both` : "none",
-                }}
-                onClick={() => {
-                  setVisible(false);
-                  setTimeout(() => setOpen(false), 180);
-                }}
-              >
-                {dest.label}
-              </Link>
-            ))}
-          </div>
+          {item.items.map((dest, i) => (
+            <Link
+              key={dest.href}
+              href={dest.href}
+              className="flex cursor-pointer items-center gap-2 rounded-[8px] px-3 py-2 text-[14px] font-medium transition-all duration-150 hover:translate-x-0.5 hover:bg-[var(--colorNeutral100)]"
+              style={{
+                color: "var(--colorTextPrimary)",
+                animation: open ? `fade-in-dropdown 0.2s ease-out ${i * 0.03}s both` : "none",
+              }}
+              onClick={() => setOpen(false)}
+            >
+              {dest.flag && (
+                <img
+                  src={`https://flagcdn.com/w40/${dest.flag}.png`}
+                  srcSet={`https://flagcdn.com/w40/${dest.flag}.png 1x, https://flagcdn.com/w80/${dest.flag}.png 2x`}
+                  width={18}
+                  height={13.5}
+                  alt={`${dest.label} flag`}
+                  loading="lazy"
+                  className="block rounded-[2px] object-cover"
+                />
+              )}
+              {dest.label}
+            </Link>
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -389,7 +388,7 @@ function MobileDropdown({
             <Link
               key={dest.href}
               href={dest.href}
-              className="rounded-[8px] px-3 py-2 text-[14px] font-normal transition-all duration-200 hover:translate-x-1 hover:bg-[var(--colorNeutral100)]"
+              className="flex items-center gap-2 rounded-[8px] px-3 py-2 text-[14px] font-normal transition-all duration-200 hover:translate-x-1 hover:bg-[var(--colorNeutral100)]"
               style={{
                 color: "var(--colorNeutral600)",
                 opacity: expanded ? 1 : 0,
@@ -399,6 +398,17 @@ function MobileDropdown({
               }}
               onClick={onClose}
             >
+              {dest.flag && (
+                <img
+                  src={`https://flagcdn.com/w40/${dest.flag}.png`}
+                  srcSet={`https://flagcdn.com/w40/${dest.flag}.png 1x, https://flagcdn.com/w80/${dest.flag}.png 2x`}
+                  width={18}
+                  height={13.5}
+                  alt={`${dest.label} flag`}
+                  loading="lazy"
+                  className="block rounded-[2px] object-cover"
+                />
+              )}
               {dest.label}
             </Link>
           ))}

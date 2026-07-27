@@ -23,8 +23,8 @@ export const CORRIDORS: Corridor[] = [
     currencyCode: "NGN",
     headline: "Send Money to Nigeria",
     description:
-      "Send money to your loved ones in Nigeria with fast delivery, great exchange rates, and zero hassle. Paymit makes it easy to support family and friends back home.",
-    deliveryMethods: ["Bank Deposit", "Cash Pickup", "Mobile Wallet"],
+      "Supporting your connections across Nigeria. Whether your family is in Lagos, Abuja, Kano, Port Harcourt, or anywhere else, Paymit lets you send money quickly and securely. Your funds reach loved ones safely and on time, making support easy and reliable whenever it's needed.",
+    deliveryMethods: ["Bank Deposit"],
     benefits: [
       "Same-day delivery to most banks",
       "Competitive NGN exchange rates",
@@ -43,7 +43,7 @@ export const CORRIDORS: Corridor[] = [
     currencyCode: "GHS",
     headline: "Send Money to Ghana",
     description:
-      "Send money to Ghana quickly and securely with Paymit. Enjoy competitive rates and multiple delivery options to reach your family and friends.",
+      "Bringing Ghana closer to you. Whether your loved ones are in Accra, Kumasi, Tamale, Takoradi, or anywhere across the country, Paymit makes sending money effortless, fast, and secure. Enjoy peace of mind knowing your funds arrive safely and promptly, empowering your family and friends with the support they deserve. With Paymit, transferring money is simple, reliable, and stress-free every time.",
     deliveryMethods: ["Bank Deposit", "Cash Pickup", "Mobile Wallet"],
     benefits: [
       "Fast transfer to Ghanaian banks",
@@ -103,8 +103,8 @@ export const CORRIDORS: Corridor[] = [
     currencyCode: "XOF",
     headline: "Send Money to Senegal",
     description:
-      "Send money to Senegal with Paymit. Enjoy fast transfers, excellent rates, and a simple, secure experience from the UK.",
-    deliveryMethods: ["Bank Deposit", "Cash Pickup"],
+      "Connecting you to Senegal effortlessly. Whether your loved ones are in Dakar, Saint-Louis, Thiès, or anywhere across the country, Paymit helps you send money quickly and securely. Your funds arrive safely and on time, providing support whenever it's needed most. Simple, reliable, and stress-free.",
+    deliveryMethods: ["Mobile Wallet"],
     benefits: [
       "Quick delivery to Senegalese banks",
       "Great XOF exchange rates",
@@ -143,8 +143,8 @@ export const CORRIDORS: Corridor[] = [
     currencyCode: "PKR",
     headline: "Send Money to Pakistan",
     description:
-      "Send money to Pakistan with Paymit's trusted remittance service. Fast delivery, great exchange rates, and complete transparency.",
-    deliveryMethods: ["Bank Deposit", "Cash Pickup", "Mobile Wallet"],
+      "Bringing Pakistan closer with every transfer. Whether you're sending love to Punjab, Sindh, Khyber Pakhtunkhwa, Balochistan, Islamabad, or anywhere across Pakistan, Paymit makes it easy, fast, and secure. Our platform ensures your money moves safely and reaches your loved ones exactly when they need it. No stress and no hassle.",
+    deliveryMethods: ["Bank Deposit", "Cash Pickup"],
     benefits: [
       "Same-day delivery to major banks",
       "Competitive PKR exchange rates",
@@ -163,8 +163,8 @@ export const CORRIDORS: Corridor[] = [
     currencyCode: "INR",
     headline: "Send Money to India",
     description:
-      "Send money to India with Paymit. Fast, secure, and affordable transfers with excellent exchange rates and multiple delivery options.",
-    deliveryMethods: ["Bank Deposit", "Cash Pickup", "Mobile Wallet"],
+      "Now India is just a click away. Move your money quickly and securely with no queues, no delays, and no hassle. Whether it's for family support or a special occasion, your funds reach home in minutes. Fast, simple, and reliable.",
+    deliveryMethods: ["Bank Deposit", "Cash Pickup"],
     benefits: [
       "Fast delivery to Indian banks",
       "Great INR exchange rates",
@@ -183,7 +183,7 @@ export const CORRIDORS: Corridor[] = [
     currencyCode: "BDT",
     headline: "Send Money to Bangladesh",
     description:
-      "Send money to Bangladesh with Paymit's reliable service. Competitive rates, fast delivery, and a secure platform for your remittances.",
+      "Bangladesh is always within reach. With Paymit, your money moves fast and securely—straight to any bank, ready for cash pickup, or delivered to mobile wallets from Dhaka to Sylhet and beyond. Sending money to Bangladesh has never been easier.",
     deliveryMethods: ["Bank Deposit", "Cash Pickup", "Mobile Wallet"],
     benefits: [
       "Quick delivery to Bangladeshi banks",

@@ -1,5 +1,7 @@
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { SectionReveal } from "@/components/section-reveal";
+import { Reveal } from "@/components/reveal";
 
 export const metadata = {
   title: "Terms of Service | Paymit",
@@ -12,32 +14,34 @@ export default function TermsOfServicePage() {
     <>
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
-        <section
-          className="mx-auto w-full"
-          style={{
-            maxWidth: "var(--layoutMaxWidth)",
-            padding: "var(--sectionPaddingY) var(--layoutMargin)",
-          }}
-        >
-          <div className="mx-auto max-w-3xl">
-            <h1
-              className="text-[44px] font-semibold leading-[1.1] tracking-[-1.2px] text-[var(--colorTextPrimary)] max-lg:text-[36px] max-lg:tracking-[-1px]"
-              style={{ textWrap: "balance" }}
-            >
-              Terms of{" "}
-              <span className="text-[var(--colorTextActionPrimary)]">Service</span>
-            </h1>
-            <p className="mt-4 text-[14px] text-[var(--colorNeutral500)]">
-              Last updated: 18 March 2024
-            </p>
+        <section className="w-full">
+          <div
+            className="mx-auto w-full"
+            style={{
+              maxWidth: "var(--layoutMaxWidth)",
+              padding: "var(--sectionPaddingY) var(--layoutMargin)",
+            }}
+          >
+            <div className="mx-auto max-w-3xl">
+              <h1
+                className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
+                style={{ textWrap: "balance", maxWidth: "720px" }}
+              >
+                Terms of{" "}
+                <span className="text-[var(--colorTextActionPrimary)]">Service</span>
+              </h1>
+              <p className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2">
+                Last updated: 18 March 2024
+              </p>
+            <Reveal targets="[data-reveal]" stagger={0.08} y={16} duration={0.5}>
             <div className="mt-10 flex flex-col gap-10 text-[15px] leading-[26px] text-[var(--colorNeutral600)]">
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   1. Introduction
                 </h2>
                 <p>
-                  Welcome to Paymit (&quot;Website&quot;). These Terms of
-                  Service (&quot;Terms&quot;) govern your access and use of the
+                  Welcome to Paymit ("Website"). These Terms of
+                  Service ("Terms") govern your access and use of the
                   Paymit platform. Please read them carefully before using our
                   services.
                 </p>
@@ -48,7 +52,7 @@ export default function TermsOfServicePage() {
                 </p>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   2. Use of the Website
                 </h2>
@@ -59,7 +63,7 @@ export default function TermsOfServicePage() {
                 </p>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   3. Intellectual Property
                 </h2>
@@ -71,7 +75,7 @@ export default function TermsOfServicePage() {
                 </p>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   4. Limitation of Liability
                 </h2>
@@ -84,7 +88,7 @@ export default function TermsOfServicePage() {
                 </p>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   5. Privacy
                 </h2>
@@ -101,7 +105,7 @@ export default function TermsOfServicePage() {
                 </p>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   6. Third-Party Links
                 </h2>
@@ -112,7 +116,7 @@ export default function TermsOfServicePage() {
                 </p>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   7. Changes to These Terms
                 </h2>
@@ -123,7 +127,7 @@ export default function TermsOfServicePage() {
                 </p>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   8. Contact Us
                 </h2>
@@ -131,7 +135,7 @@ export default function TermsOfServicePage() {
                   If you have any questions about these Terms, please contact
                   us at{" "}
                   <a
-                    href="mailto:support@paymit.co.uk"
+                    href="mailto:suppor@paymit.co.uk"
                     className="font-medium text-[var(--colorTextActionPrimary)] underline-offset-4 hover:underline"
                   >
                     support@paymit.co.uk
@@ -140,7 +144,9 @@ export default function TermsOfServicePage() {
                 </p>
               </section>
             </div>
+            </Reveal>
           </div>
+        </div>
         </section>
       </main>
       <Footer />

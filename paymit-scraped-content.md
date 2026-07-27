@@ -34,6 +34,20 @@
 - [12. APP STORE & GOOGLE PLAY (External)](#12-app-store--google-play-external)
 - [13. TRUSTPILOT REVIEWS (External)](#13-trustpilot-reviews-external)
 - [14. SOCIAL MEDIA (External)](#14-social-media-external)
+- [15. COUNTRY & CORRIDOR DATA (Source Code)](#15-country--corridor-data-source-code)
+  - [15.1 Master Corridor Table (All 9)](#151-master-corridor-table-all-9)
+  - [15.2 Country Data Breakdown By File](#152-country-data-breakdown-by-file)
+  - [15.3 Live Send-To Pages (6)](#153-live-send-to-pages-6)
+    - [15.3.1 India](#1531-india)
+    - [15.3.2 Nigeria](#1532-nigeria)
+    - [15.3.3 Ghana](#1533-ghana)
+    - [15.3.4 Senegal](#1534-senegal)
+    - [15.3.5 Pakistan](#1535-pakistan)
+    - [15.3.6 Bangladesh](#1536-bangladesh)
+  - [15.4 Defined in Source But Not Deployed (3)](#154-defined-in-source-but-not-deployed-3)
+- [16. CURRENCY CONVERTER COUNTRIES (12 Currencies)](#16-currency-converter-countries-12-currencies)
+  - [16.1 Master Currency Table](#161-master-currency-table)
+  - [16.2 GBP Exchange Rates (from currencies.ts)](#162-gbp-exchange-rates-from-currenciests)
 
 ---
 
@@ -85,7 +99,7 @@
 | Send Money To | Dropdown (Radix UI) — see destinations below | — |
 | Mobile App | Text link (scroll) | `/#mobile-app-section` |
 
-**"Send Money To" dropdown:** Button with Lucide `chevron-down` icon (rotates 180° on open via Radix UI). Content rendered client-side. Destinations served: **Nigeria, Ghana, Gambia, Cameroon, Senegal, Zambia, Pakistan, India, Bangladesh** (more coming soon).
+**"Send Money To" dropdown:** Button with Lucide `chevron-down` icon (rotates 180° on open via Radix UI). Content rendered client-side. Destinations served in nav: **Nigeria, Ghana, Gambia, Cameroon, Senegal, Zambia, Pakistan, India, Bangladesh** (more coming soon). Only 6 have live pages — see [Section 15](#15-send-to-country-pages).
 
 #### Desktop Action Buttons (right-aligned)
 
@@ -653,3 +667,150 @@ All employees, customers, and partners must uphold honesty, transparency, and ac
 | YouTube | @Paymitlimited | https://www.youtube.com/@Paymitlimited |
 | Instagram | @paymitlimited | https://www.instagram.com/paymitlimited/ |
 | TikTok | @paymitlimited | https://www.tiktok.com/@paymitlimited |
+
+---
+
+## 15. SEND-TO COUNTRY PAGES
+
+**6 live pages with dedicated content, 3 listed in nav but return homepage.**
+**Route pattern:** `/send-to/[country]`
+**Layout:** Hero section (headline + description + "Send Now" CTA + country image) → Delivery options grid → Global footer.
+
+---
+
+### 15.1 Master Corridor Table (9 Total)
+
+| # | Country | Slug | ISO | Flag | Region | Currency | Currency Code | Delivery Methods (Live Page) | Status |
+|---|---------|------|-----|------|--------|----------|---------------|-----------------------------|--------|
+| 1 | **Nigeria** | `nigeria` | NG | `ng` | Africa | Nigerian Naira | NGN | Bank Transfer | ✅ Live page |
+| 2 | **Ghana** | `ghana` | GH | `gh` | Africa | Ghanaian Cedi | GHS | Bank Transfer, Cash Pickup, Mobile Wallets | ✅ Live page |
+| 3 | **Gambia** | `gambia` | GM | `gm` | Africa | Gambian Dalasi | GMD | *(not deployed)* | ❌ Returns homepage |
+| 4 | **Cameroon** | `cameroon` | CM | `cm` | Africa | Central African CFA Franc | XAF | *(not deployed)* | ❌ Returns homepage |
+| 5 | **Senegal** | `senegal` | SN | `sn` | Africa | West African CFA Franc | XOF | Mobile Wallets | ✅ Live page |
+| 6 | **Zambia** | `zambia` | ZM | `zm` | Africa | Zambian Kwacha | ZMW | *(not deployed)* | ❌ Returns homepage |
+| 7 | **Pakistan** | `pakistan` | PK | `pk` | South Asia | Pakistani Rupee | PKR | Bank Transfer, Cash Pickup | ✅ Live page |
+| 8 | **India** | `india` | IN | `in` | South Asia | Indian Rupee | INR | Bank Transfer, Cash Pickup | ✅ Live page |
+| 9 | **Bangladesh** | `bangladesh` | BD | `bd` | South Asia | Bangladeshi Taka | BDT | Bank Transfer, Cash Pickup, Mobile Wallets | ✅ Live page |
+
+---
+
+### 15.2 Nigeria
+
+| Field | Content |
+|-------|---------|
+| **URL** | https://paymit.co.uk/send-to/nigeria |
+| **Hero Headline** | "Send Money to Nigeria" |
+| **Hero Description** | "Supporting your connections across Nigeria. Whether your family is in Lagos, Abuja, Kano, Port Harcourt, or anywhere else, Paymit lets you send money quickly and securely. Your funds reach loved ones safely and on time, making support easy and reliable whenever it's needed." |
+| **Hero Image** | `/assets/send-to/nigeria.jpg` |
+| **Delivery Methods** | Bank Transfer (direct deposit to any bank account in Nigeria) |
+| **CTA Button** | "Send Now" → https://app.paymit.co.uk/register |
+
+### 15.3 Ghana
+
+| Field | Content |
+|-------|---------|
+| **URL** | https://paymit.co.uk/send-to/ghana |
+| **Hero Headline** | "Send Money to Ghana" |
+| **Hero Description** | "Bringing Ghana closer to you. Whether your loved ones are in Accra, Kumasi, Tamale, Takoradi, or anywhere across the country, Paymit makes sending money effortless, fast, and secure. Enjoy peace of mind knowing your funds arrive safely and promptly, empowering your family and friends with the support they deserve. With Paymit, transferring money is simple, reliable, and stress-free every time." |
+| **Hero Image** | `/assets/send-to/Ghana.jpg` |
+| **Delivery Methods** | Bank Transfer (direct deposit to any bank account in Ghana), Cash Pickup (collect cash from trusted locations), Mobile Wallets (instantly deposit to mobile wallets) |
+| **CTA Button** | "Send Now" → https://app.paymit.co.uk/register |
+
+### 15.4 Senegal
+
+| Field | Content |
+|-------|---------|
+| **URL** | https://paymit.co.uk/send-to/senegal |
+| **Hero Headline** | "Send Money to Senegal" |
+| **Hero Description** | "Connecting you to Senegal effortlessly. Whether your loved ones are in Dakar, Saint-Louis, Thiès, or anywhere across the country, Paymit helps you send money quickly and securely. Your funds arrive safely and on time, providing support whenever it's needed most. Simple, reliable, and stress-free." |
+| **Hero Image** | `/assets/send-to/Senegal.jpg` |
+| **Delivery Methods** | Mobile Wallets (instantly deposit to mobile wallets) |
+| **CTA Button** | "Send Now" → https://app.paymit.co.uk/register |
+
+### 15.5 Pakistan
+
+| Field | Content |
+|-------|---------|
+| **URL** | https://paymit.co.uk/send-to/pakistan |
+| **Hero Headline** | "Send Money to Pakistan" |
+| **Hero Description** | "Bringing Pakistan closer with every transfer. Whether you're sending love to Punjab, Sindh, Khyber Pakhtunkhwa, Balochistan, Islamabad, or anywhere across Pakistan, Paymit makes it easy, fast, and secure. Our platform ensures your money moves safely and reaches your loved ones exactly when they need it. No stress and no hassle." |
+| **Hero Image** | `/assets/send-to/Pakistan.jpg` |
+| **Delivery Methods** | Bank Transfer (direct deposit to any bank account in Pakistan), Cash Pickup (collect cash from trusted locations) |
+| **CTA Button** | "Send Now" → https://app.paymit.co.uk/register |
+
+### 15.6 India
+
+| Field | Content |
+|-------|---------|
+| **URL** | https://paymit.co.uk/send-to/india |
+| **Hero Headline** | "Send Money to India" |
+| **Hero Description** | "Now India is just a click away. Move your money quickly and securely with no queues, no delays, and no hassle. Whether it's for family support or a special occasion, your funds reach home in minutes. Fast, simple, and reliable." |
+| **Hero Image** | `/assets/send-to/India.jpg` |
+| **Delivery Methods** | Bank Transfer (direct deposit to any bank account in India), Cash Pickup (collect cash from trusted locations) |
+| **CTA Button** | "Send Now" → https://app.paymit.co.uk/register |
+
+### 15.7 Bangladesh
+
+| Field | Content |
+|-------|---------|
+| **URL** | https://paymit.co.uk/send-to/bangladesh |
+| **Hero Headline** | "Send Money to Bangladesh" |
+| **Hero Description** | "Bangladesh is always within reach. With Paymit, your money moves fast and securely—straight to any bank, ready for cash pickup, or delivered to mobile wallets from Dhaka to Sylhet and beyond. Sending money to Bangladesh has never been easier." |
+| **Hero Image** | `/assets/send-to/bangladesh man.jpg` |
+| **Delivery Methods** | Bank Transfer (direct deposit to any bank account in Bangladesh), Cash Pickup (collect cash from trusted locations), Mobile Wallets (instantly deposit to mobile wallets) |
+| **CTA Button** | "Send Now" → https://app.paymit.co.uk/register |
+
+### 15.8 Not Deployed (3 Countries — Return Homepage)
+
+| Country | Slug | What happens |
+|---------|------|-------------|
+| **Gambia** | `/send-to/gambia` | Redirects to homepage — no dedicated page exists |
+| **Cameroon** | `/send-to/cameroon` | Redirects to homepage — no dedicated page exists |
+| **Zambia** | `/send-to/zambia` | Redirects to homepage — no dedicated page exists |
+
+These 3 are defined in the source code's `corridors.ts` with full metadata (descriptions, benefits, delivery methods) and appear in the nav dropdown, but their routes are not deployed.
+
+---
+
+## 16. CURRENCY CONVERTER COUNTRIES (12 Currencies)
+
+**Source:** Currency dropdown on the homepage hero (Radix UI Select). Shows 12 currencies with flag + code.
+
+### 16.1 Master Currency Table
+
+| # | Country / Region | Currency Code | ISO Flag | Symbol |
+|---|-----------------|---------------|----------|--------|
+| 1 | **United Kingdom** | GBP | `gb` | £ |
+| 2 | **United States** | USD | `us` | $ |
+| 3 | **Eurozone** | EUR | `eu` | € |
+| 4 | **Nigeria** | NGN | `ng` | ₦ |
+| 5 | **Norway** | NOK | `no` | kr |
+| 6 | **India** | INR | `in` | ₹ |
+| 7 | **Ghana** | GHS | `gh` | ₵ |
+| 8 | **Kenya** | KES | `ke` | KSh |
+| 9 | **Canada** | CAD | `ca` | C$ |
+| 10 | **Australia** | AUD | `au` | A$ |
+| 11 | **Japan** | JPY | `jp` | ¥ |
+| 12 | **Brazil** | BRL | `br` | R$ |
+
+**Notes:**
+- Only 3 of 12 converter currencies overlap with send-to corridors: NGN (Nigeria), INR (India), GHS (Ghana)
+- 6 currencies (GBP, USD, EUR, NOK, KES, CAD, AUD, JPY, BRL) appear in the converter but have **no send-to page**
+- PKR (Pakistan), BDT (Bangladesh), XOF (Senegal), XAF (Cameroon), GMD (Gambia), ZMW (Zambia) are send-to corridors but **not in the converter dropdown**
+- Default state: GBP → NGN
+
+### 16.2 GBP Exchange Rates
+
+| Currency | Code | Rate vs 1 GBP |
+|----------|------|--------------|
+| US Dollar | USD | 1.27 |
+| Euro | EUR | 1.17 |
+| Nigerian Naira | NGN | 1,800.00 |
+| Norwegian Krone | NOK | 13.80 |
+| Indian Rupee | INR | 106.50 |
+| Ghanaian Cedi | GHS | 15.80 |
+| Kenyan Shilling | KES | 165.00 |
+| Canadian Dollar | CAD | 1.72 |
+| Australian Dollar | AUD | 1.95 |
+| Japanese Yen | JPY | 191.00 |
+| Brazilian Real | BRL | 6.20 |

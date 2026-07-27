@@ -1,6 +1,7 @@
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
+import { Reveal } from "@/components/reveal";
 
 export const metadata = {
   title: "Mobile App | Paymit",
@@ -94,32 +95,33 @@ export default function MobileAppPage() {
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
         {/* Hero */}
-        <section
-          className="mx-auto w-full"
-          style={{
-            maxWidth: "var(--layoutMaxWidth)",
-            padding: "var(--sectionPaddingY) var(--layoutMargin)",
-          }}
-        >
-          <div className="flex flex-col items-center gap-12 md:flex-row md:items-center md:justify-between">
-            <div className="max-w-lg text-center md:text-left">
-              <h1
-                className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px]"
-                style={{ textWrap: "balance" }}
-              >
-                Send Money{" "}
-                <span className="text-[var(--colorTextActionPrimary)]">
-                  Anywhere
-                </span>
-              </h1>
-              <p
-                className="mt-6 text-[18px] font-medium leading-[28px] text-[var(--colorNeutral600)]"
-                style={{ textWrap: "balance" }}
-              >
-                The Paymit app makes international money transfers fast, secure,
-                and affordable — all from your phone.
-              </p>
-              <div className="mt-8 flex flex-wrap items-center justify-center gap-4 md:justify-start">
+        <section className="w-full">
+          <div
+            className="mx-auto w-full"
+            style={{
+              maxWidth: "var(--layoutMaxWidth)",
+              padding: "var(--sectionPaddingY) var(--layoutMargin)",
+            }}
+          >
+            <div className="flex flex-col items-start gap-12 md:flex-row md:items-center md:justify-between">
+              <div className="max-w-lg">
+                <h1
+                  className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
+                  style={{ textWrap: "balance", maxWidth: "720px" }}
+                >
+                  Send Money{" "}
+                  <span className="text-[var(--colorTextActionPrimary)]">
+                    Anywhere
+                  </span>
+                </h1>
+                <p
+                  className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2"
+                  style={{ textWrap: "balance" }}
+                >
+                  The Paymit app makes international money transfers fast, secure,
+                  and affordable — all from your phone.
+                </p>
+                <div className="mt-8 flex flex-wrap items-center justify-start gap-4">
                 <a
                   href="https://apps.apple.com/gb/app/paymit/id6751227334"
                   target="_blank"
@@ -175,6 +177,7 @@ export default function MobileAppPage() {
               </div>
             </div>
           </div>
+        </div>
         </section>
 
         {/* Features */}
@@ -187,9 +190,10 @@ export default function MobileAppPage() {
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
             }}
           >
-            <h2 className="text-[36px] font-semibold text-[var(--colorTextPrimary)] max-md:text-[28px]" style={{ textWrap: "balance" }}>
+            <h2 data-reveal className="text-[36px] font-semibold text-[var(--colorTextPrimary)] max-md:text-[28px]" style={{ textWrap: "balance" }}>
               Everything You Need
             </h2>
+            <Reveal targets="[data-reveal]" stagger={0.06} y={16} duration={0.45}>
             <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {features.map((feature) => (
                 <div
@@ -197,7 +201,7 @@ export default function MobileAppPage() {
                   className="flex flex-col rounded-[var(--borderRadiusMd)] bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                   style={{ boxShadow: "var(--box-shadow-card)" }}
                 >
-                  <div
+                  <div data-reveal
                     className="flex size-12 items-center justify-center rounded-full"
                     style={{ backgroundColor: "var(--colorBrand25)" }}
                   >
@@ -205,15 +209,16 @@ export default function MobileAppPage() {
                       {feature.icon}
                     </div>
                   </div>
-                  <h3 className="mt-4 text-[18px] font-semibold text-[var(--colorTextPrimary)]">
+                  <h3 data-reveal className="mt-4 text-[18px] font-semibold text-[var(--colorTextPrimary)]">
                     {feature.title}
                   </h3>
-                  <p className="mt-2 text-[14px] leading-[22px] text-[var(--colorNeutral600)]">
+                  <p data-reveal className="mt-2 text-[14px] leading-[22px] text-[var(--colorNeutral600)]">
                     {feature.description}
                   </p>
                 </div>
               ))}
             </div>
+            </Reveal>
           </div>
           </section>
         </SectionReveal>
@@ -221,14 +226,15 @@ export default function MobileAppPage() {
         {/* Supported Countries */}
         <SectionReveal>
           <section className="mx-auto w-full" style={{ maxWidth: "var(--layoutMaxWidth)", padding: "var(--sectionPaddingY) var(--layoutMargin)" }}>
-          <h2 className="text-[36px] font-semibold text-[var(--colorTextPrimary)] max-md:text-[28px]">
+          <h2 data-reveal className="text-[36px] font-semibold text-[var(--colorTextPrimary)] max-md:text-[28px]">
             Send to <span className="text-[var(--colorTextActionPrimary)]">9+ Countries</span>
           </h2>
+          <Reveal targets="[data-reveal]" stagger={0.05} y={14} duration={0.4}>
           <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
             {corridors.map((c) => (
               <a
                 key={c.iso}
-                href={`/send-money/${c.iso === "gm" ? "gambia" : c.iso === "cm" ? "cameroon" : c.iso === "sn" ? "senegal" : c.iso === "zm" ? "zambia" : c.iso === "pk" ? "pakistan" : c.iso === "in" ? "india" : c.iso === "bd" ? "bangladesh" : c.iso === "ng" ? "nigeria" : "ghana"}`}
+                data-reveal
                 className="flex items-center gap-3 rounded-[var(--borderRadiusMd)] border p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 style={{ borderColor: "var(--colorBorderLight)" }}
               >
@@ -249,6 +255,7 @@ export default function MobileAppPage() {
               </a>
             ))}
           </div>
+          </Reveal>
           </section>
         </SectionReveal>
       </main>

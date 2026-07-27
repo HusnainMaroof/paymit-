@@ -1,5 +1,7 @@
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
+import { SectionReveal } from "@/components/section-reveal";
+import { Reveal } from "@/components/reveal";
 
 export const metadata = {
   title: "Fraud Prevention Policy | Paymit",
@@ -12,26 +14,28 @@ export default function FraudPreventionPolicyPage() {
     <>
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
-        <section
-          className="mx-auto w-full"
-          style={{
-            maxWidth: "var(--layoutMaxWidth)",
-            padding: "var(--sectionPaddingY) var(--layoutMargin)",
-          }}
-        >
-          <div className="mx-auto max-w-3xl">
-            <h1
-              className="text-[44px] font-semibold leading-[1.1] tracking-[-1.2px] text-[var(--colorTextPrimary)] max-lg:text-[36px] max-lg:tracking-[-1px]"
-              style={{ textWrap: "balance" }}
-            >
-              Fraud Prevention{" "}
-              <span className="text-[var(--colorTextActionPrimary)]">Policy</span>
-            </h1>
-            <p className="mt-4 text-[14px] text-[var(--colorNeutral500)]">
-              Last updated: 18 March 2024
-            </p>
+        <section className="w-full">
+          <div
+            className="mx-auto w-full"
+            style={{
+              maxWidth: "var(--layoutMaxWidth)",
+              padding: "var(--sectionPaddingY) var(--layoutMargin)",
+            }}
+          >
+            <div className="mx-auto max-w-3xl">
+              <h1
+                className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
+                style={{ textWrap: "balance", maxWidth: "720px" }}
+              >
+                Fraud Prevention{" "}
+                <span className="text-[var(--colorTextActionPrimary)]">Policy</span>
+              </h1>
+              <p className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2">
+                Last updated: 18 March 2024
+              </p>
+            <Reveal targets="[data-reveal]" stagger={0.06} y={16} duration={0.45}>
             <div className="mt-10 flex flex-col gap-10 text-[15px] leading-[26px] text-[var(--colorNeutral600)]">
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   1. Our Commitment
                 </h2>
@@ -43,7 +47,7 @@ export default function FraudPreventionPolicyPage() {
                 </p>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   2. How We Detect Fraud
                 </h2>
@@ -80,7 +84,7 @@ export default function FraudPreventionPolicyPage() {
                 </ul>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   3. Common Fraud Types We Prevent
                 </h2>
@@ -93,7 +97,7 @@ export default function FraudPreventionPolicyPage() {
                 </ul>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   4. What You Can Do
                 </h2>
@@ -109,7 +113,7 @@ export default function FraudPreventionPolicyPage() {
                 </ul>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   5. Reporting Fraud
                 </h2>
@@ -137,7 +141,7 @@ export default function FraudPreventionPolicyPage() {
                 </p>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   6. Account Suspension
                 </h2>
@@ -149,7 +153,7 @@ export default function FraudPreventionPolicyPage() {
                 </p>
               </section>
 
-              <section>
+              <section data-reveal>
                 <h2 className="mb-3 text-[22px] font-semibold text-[var(--colorTextPrimary)]">
                   7. Contact Us
                 </h2>
@@ -166,7 +170,9 @@ export default function FraudPreventionPolicyPage() {
                 </p>
               </section>
             </div>
+            </Reveal>
           </div>
+        </div>
         </section>
       </main>
       <Footer />

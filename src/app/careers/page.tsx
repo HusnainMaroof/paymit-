@@ -1,6 +1,7 @@
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
+import { Reveal } from "@/components/reveal";
 
 export const metadata = {
   title: "Careers | Paymit",
@@ -14,23 +15,23 @@ export default function CareersPage() {
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
         {/* Hero */}
-        <section
-          className="mx-auto w-full"
-          style={{
-            maxWidth: "var(--layoutMaxWidth)",
-            padding: "var(--sectionPaddingY) var(--layoutMargin)",
-          }}
-        >
-          <div className="mx-auto max-w-3xl text-center">
+        <section className="w-full">
+          <div
+            className="mx-auto w-full"
+            style={{
+              maxWidth: "var(--layoutMaxWidth)",
+              padding: "var(--sectionPaddingY) var(--layoutMargin)",
+            }}
+          >
             <h1
-              className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px] max-lg:tracking-[-1.3px]"
-              style={{ textWrap: "balance" }}
+              className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
+              style={{ textWrap: "balance", maxWidth: "720px" }}
             >
               Careers at{" "}
               <span className="text-[var(--colorTextActionPrimary)]">Paymit</span>
             </h1>
             <p
-              className="mt-6 text-[18px] font-medium leading-[28px] text-[var(--colorNeutral600)]"
+              className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2"
               style={{ textWrap: "balance" }}
             >
               We&apos;re building the future of international money transfers
@@ -48,6 +49,7 @@ export default function CareersPage() {
               padding: "0 var(--layoutMargin) var(--sectionPaddingY)",
             }}
           >
+            <Reveal targets="[data-reveal]" stagger={0.1} y={16} duration={0.5}>
             <div className="mx-auto max-w-2xl">
               <div
                 className="rounded-[var(--borderRadiusLg)] border p-12 text-center"
@@ -57,6 +59,7 @@ export default function CareersPage() {
                 }}
               >
                 <div
+                  data-reveal
                   className="mx-auto flex size-16 items-center justify-center rounded-full"
                   style={{ backgroundColor: "var(--colorBrand25)" }}
                 >
@@ -76,14 +79,15 @@ export default function CareersPage() {
                     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                   </svg>
                 </div>
-                <h2 className="mt-6 text-[28px] font-semibold text-[var(--colorTextPrimary)]">
+                <h2 data-reveal className="mt-6 text-[28px] font-semibold text-[var(--colorTextPrimary)]">
                   No Open Roles Right Now
                 </h2>
-                <p className="mt-3 text-[16px] leading-[26px] text-[var(--colorNeutral600)]">
+                <p data-reveal className="mt-3 text-[16px] leading-[26px] text-[var(--colorNeutral600)]">
                   We&apos;re always growing. Check back soon or connect with us on
                   LinkedIn to be the first to know when new positions open up.
                 </p>
                 <a
+                  data-reveal
                   href="https://www.linkedin.com/company/paymitlimited"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -101,6 +105,7 @@ export default function CareersPage() {
                 </a>
               </div>
             </div>
+            </Reveal>
           </section>
         </SectionReveal>
       </main>

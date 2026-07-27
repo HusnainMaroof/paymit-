@@ -1,5 +1,7 @@
 "use client";
 
+import { Reveal } from "@/components/reveal";
+
 const FEATURES = [
   {
     title: "Best Rates, Bigger Smiles",
@@ -32,23 +34,25 @@ export function WhyChoosePaymit() {
       }}
     >
       {/* Section heading */}
-      <div className="mx-auto max-w-2xl text-center">
-        <h2
-          className="text-[36px] font-bold leading-[1.1] tracking-[-1px] text-black md:text-[48px] md:tracking-[-1.4px]"
-          style={{ textWrap: "balance" }}
-        >
-          Why Choose Paymit
-        </h2>
-        <p className="mt-4 text-[16px] font-medium leading-[26px] text-black/60 md:text-[18px]">
-          Fast, affordable, and secure money transfers trusted by thousands.
-        </p>
-      </div>
+      <Reveal targets="[data-reveal]" stagger={0.12} duration={0.8} clearProps>
+        <div data-reveal className="mx-auto max-w-2xl text-center">
+          <h2
+            className="text-[36px] font-bold leading-[1.1] tracking-[-1px] text-black md:text-[48px] md:tracking-[-1.4px]"
+            style={{ textWrap: "balance" }}
+          >
+            Why Choose Paymit
+          </h2>
+          <p className="mt-4 text-[16px] font-medium leading-[26px] text-black/60 md:text-[18px]">
+            Fast, affordable, and secure money transfers trusted by thousands.
+          </p>
+        </div>
 
       {/* Cards grid */}
       <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
         {FEATURES.map((feature) => (
           <div
             key={feature.title}
+            data-reveal
             className="group flex flex-col overflow-hidden rounded-[var(--borderRadiusMd)] border bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             style={{ borderColor: "var(--colorBorderLight)" }}
           >
@@ -75,6 +79,7 @@ export function WhyChoosePaymit() {
           </div>
         ))}
       </div>
+      </Reveal>
     </section>
   );
 }

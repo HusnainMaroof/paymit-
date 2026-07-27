@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useLayoutEffect, useEffect } from "react";
+import gsap from "gsap";
 import {
   Select,
   SelectContent,
@@ -9,6 +10,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CURRENCIES, getRate, getSymbol, formatRate, fmt } from "@/data/currencies";
+
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 function FlagImg({
   iso,
@@ -33,10 +37,91 @@ function FlagImg({
 }
 
 export function Hero() {
+  const desktopRef = useRef<HTMLDivElement>(null);
+  const mobileRef = useRef<HTMLDivElement>(null);
+  const graphicRef = useRef<HTMLDivElement>(null);
+
+  useIsomorphicLayoutEffect(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add(
+      {
+        isDesktop: "(min-width: 768px)",
+        isMobile: "(max-width: 767px)",
+        reduce: "(prefers-reduced-motion: reduce)",
+      },
+      (ctx) => {
+        const { isDesktop, reduce } = ctx.conditions as {
+          isDesktop: boolean;
+          isMobile: boolean;
+          reduce: boolean;
+        };
+        const scope = isDesktop ? desktopRef.current : mobileRef.current;
+        if (!scope) return;
+
+        // Heading word stagger - from bottom
+        const words = scope.querySelectorAll<HTMLElement>("[data-hero-word]");
+        if (words.length) {
+          if (reduce) {
+            gsap.set(words, { autoAlpha: 1, y: 0, clearProps: "transform,opacity" });
+          } else {
+            gsap.set(words, { autoAlpha: 0, y: 24 });
+            gsap.to(words, {
+              autoAlpha: 1,
+              y: 0,
+              duration: 0.6,
+              stagger: 0.08,
+              ease: "power3.out",
+              delay: 0.1,
+            });
+          }
+        }
+
+        // Graphic container - expand from bottom
+        const graphic = graphicRef.current;
+        if (graphic) {
+          if (reduce) {
+            gsap.set(graphic, { height: "auto", clearProps: "height" });
+          } else {
+            gsap.set(graphic, { height: 0, opacity: 0 });
+            gsap.to(graphic, {
+              height: "auto",
+              opacity: 1,
+              duration: 0.9,
+              ease: "power3.out",
+              delay: 0.25,
+            });
+          }
+        }
+
+        // Hero elements - stagger from bottom
+        const elements = scope.querySelectorAll<HTMLElement>("[data-hero]");
+        if (!elements.length) return;
+
+        if (reduce) {
+          gsap.set(elements, { autoAlpha: 1, y: 0, clearProps: "transform,opacity" });
+          return;
+        }
+
+        gsap.set(elements, { autoAlpha: 0, y: 24 });
+
+        const tl = gsap.timeline({ defaults: { duration: 0.6, ease: "power3.out" } });
+        tl.to(elements, {
+          autoAlpha: 1,
+          y: 0,
+          stagger: 0.1,
+        }, 0.15);
+      },
+    );
+
+    return () => mm.revert();
+  }, []);
+
   return (
     <section className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
       {/* Desktop / Tablet layout (≥768px) — 24-col grid */}
       <div
+        ref={desktopRef}
         className="mx-auto hidden w-full md:grid"
         style={{
           maxWidth: "var(--layoutMaxWidth)",
@@ -62,13 +147,14 @@ export function Hero() {
           className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
           style={{ gridArea: "h", textWrap: "balance", maxWidth: "720px" }}
         >
-          Send{" "}
-          <span className="text-[var(--colorTextActionPrimary)]">money</span>{" "}
-          worldwide.
+          <span data-hero-word>Send</span>{" "}
+          <span data-hero-word className="text-[var(--colorTextActionPrimary)]">money</span>{" "}
+          <span data-hero-word>worldwide.</span>
         </h1>
 
         {/* Body */}
         <p
+          data-hero
           className="mt-2.5 text-lg   font-medium  max-lg:mt-0 max-lg:mb-2"
           style={{ gridArea: "t"}}
         >
@@ -79,6 +165,7 @@ export function Hero() {
         {/* CTA Button */}
         <a
           href="#"
+          data-hero
           className="btn-hero-morph group row-span-1 flex w-min items-center justify-between gap-4 rounded-[var(--borderRadiusXs)] border border-[var(--colorBorderLight)] bg-[var(--colorNeutral100)] p-4 no-underline whitespace-nowrap max-lg:w-full max-lg:whitespace-normal"
           style={{ gridArea: "b", alignSelf: "end", color: "var(--colorText)" }}
         >
@@ -102,8 +189,10 @@ export function Hero() {
 
         {/* Graphic Container */}
         <div
+          ref={graphicRef}
+          data-hero
           className="flex items-center justify-center rounded-[var(--borderRadiusXs)] border border-[var(--colorBorderLight)] bg-[var(--colorNeutral100)] max-lg:aspect-[366/436]"
-          style={{ gridArea: "g" }}
+          style={{ gridArea: "g", overflow: "hidden" }}
         >
           <HeroGraphicCard />
         </div>
@@ -111,6 +200,7 @@ export function Hero() {
 
       {/* Mobile layout (<768px) — stacked */}
       <div
+        ref={mobileRef}
         className="flex w-full flex-col items-center justify-between md:hidden"
         style={{
           height: "90vh",
@@ -121,20 +211,20 @@ export function Hero() {
         }}
       >
         {/* Hero Pill */}
-   
+    
 
-      <div className="flex w-full max-w-[440px] flex-col gap-5">
-          {/* Heading */}
-        <h1 className="self-start text-[40px] font-semibold leading-[38px] tracking-[-1px] text-[var(--colorTextPrimary)] pt-10"
+<div className="flex w-full max-w-[440px] flex-col gap-5">
+           {/* Heading */}
+        <h1 data-hero className="self-start text-[40px] font-semibold leading-[38px] tracking-[-1px] text-[var(--colorTextPrimary)] pt-10"
           style={{ textWrap: "balance" }}
         >
-          Send{" "}
-          <span className="text-[var(--colorTextActionPrimary)]">money</span>{" "} <br />
-          worldwide.
+          <span data-hero-word>Send</span>{" "}
+          <span data-hero-word className="text-[var(--colorTextActionPrimary)]">money</span>{" "} <br />
+          <span data-hero-word>worldwide.</span>
         </h1>
 
         {/* Body */}
-        <p className="self-start text-[18px] font-medium leading-[26px] text-[var(--colorNeutral600)]"
+        <p data-hero className="self-start text-[18px] font-medium leading-[26px] text-[var(--colorNeutral600)]"
           style={{ textWrap: "balance" }}
         >
           Experience fast, secure, and hassle-free international transfers with
@@ -144,6 +234,7 @@ export function Hero() {
         {/* CTA Button */}
         <a
           href="#"
+          data-hero
           className="btn-hero-morph group flex w-full items-center justify-between gap-4 rounded-[var(--borderRadiusXs)] border border-[var(--colorBorderLight)] bg-[var(--colorNeutral100)] p-4 no-underline"
           style={{ color: "var(--colorText)" }}
         >
@@ -167,7 +258,9 @@ export function Hero() {
       </div>
 
         {/* Converter Card */}
-        <HeroGraphicCard />
+        <div data-hero ref={graphicRef} >
+          <HeroGraphicCard />
+        </div>
       </div>
     </section>
   );

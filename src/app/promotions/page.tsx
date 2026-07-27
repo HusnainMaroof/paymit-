@@ -1,6 +1,7 @@
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
+import { Reveal } from "@/components/reveal";
 
 export const metadata = {
   title: "Promotions | Paymit",
@@ -14,25 +15,25 @@ export default function PromotionsPage() {
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
         {/* Hero */}
-        <section
-          className="mx-auto w-full"
-          style={{
-            maxWidth: "var(--layoutMaxWidth)",
-            padding: "var(--sectionPaddingY) var(--layoutMargin)",
-          }}
-        >
-          <div className="mx-auto max-w-3xl text-center">
+        <section className="w-full">
+          <div
+            className="mx-auto w-full"
+            style={{
+              maxWidth: "var(--layoutMaxWidth)",
+              padding: "var(--sectionPaddingY) var(--layoutMargin)",
+            }}
+          >
             <h1
-              className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px] max-lg:tracking-[-1.3px]"
-              style={{ textWrap: "balance" }}
+              className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
+              style={{ textWrap: "balance", maxWidth: "720px" }}
             >
-             {" "}
+              {" "}
               <span className="text-[var(--colorTextActionPrimary)]">
                 Promotions
               </span>
             </h1>
             <p
-              className="mt-6 text-[18px] font-medium leading-[28px] text-[var(--colorNeutral600)]"
+              className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2"
               style={{ textWrap: "balance" }}
             >
               Exclusive offers to make your money transfers even better.
@@ -49,13 +50,14 @@ export default function PromotionsPage() {
               padding: "0 var(--layoutMargin) var(--sectionPaddingY)",
             }}
           >
+            <Reveal targets="[data-reveal]" stagger={0.06} y={16} duration={0.5}>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               {/* Offer 1 */}
               <div
                 className="group flex flex-col overflow-hidden rounded-[var(--borderRadiusMd)] border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 style={{ borderColor: "var(--colorBorderLight)" }}
               >
-                <div
+                <div data-reveal
                   className="flex items-center justify-center px-7 py-10"
                   style={{ backgroundColor: "var(--colorBrand25)" }}
                 >
@@ -67,7 +69,7 @@ export default function PromotionsPage() {
                   </div>
                 </div>
                 <div className="p-7">
-                  <span
+                  <span data-reveal
                     className="inline-block rounded-full px-3 py-1 text-[12px] font-semibold"
                     style={{
                       backgroundColor: "var(--colorBrand25)",
@@ -76,15 +78,15 @@ export default function PromotionsPage() {
                   >
                     New Customers
                   </span>
-                  <h2 className="mt-3 text-[24px] font-semibold text-[var(--colorTextPrimary)]">
+                  <h2 data-reveal className="mt-3 text-[24px] font-semibold text-[var(--colorTextPrimary)]">
                     No Fee on Your First Transaction
                   </h2>
-                  <p className="mt-3 text-[15px] leading-[24px] text-[var(--colorNeutral600)]">
+                  <p data-reveal className="mt-3 text-[15px] leading-[24px] text-[var(--colorNeutral600)]">
                     We&apos;re waiving the fee on your very first transfer. Send
                     money to your loved ones without any extra cost — experience
                     the Paymit difference risk-free.
                   </p>
-                  <a
+                  <a data-reveal
                     href="https://app.paymit.co.uk/register"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -113,7 +115,7 @@ export default function PromotionsPage() {
                 className="group flex flex-col overflow-hidden rounded-[var(--borderRadiusMd)] border transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 style={{ borderColor: "var(--colorBorderLight)" }}
               >
-                <div
+                <div data-reveal
                   className="flex items-center justify-center px-7 py-10"
                   style={{ backgroundColor: "var(--colorBrand25)" }}
                 >
@@ -125,7 +127,7 @@ export default function PromotionsPage() {
                   </div>
                 </div>
                 <div className="p-7">
-                  <span
+                  <span data-reveal
                     className="inline-block rounded-full px-3 py-1 text-[12px] font-semibold"
                     style={{
                       backgroundColor: "var(--colorBrand25)",
@@ -134,15 +136,15 @@ export default function PromotionsPage() {
                   >
                     Earn Rewards
                   </span>
-                  <h2 className="mt-3 text-[24px] font-semibold text-[var(--colorTextPrimary)]">
+                  <h2 data-reveal className="mt-3 text-[24px] font-semibold text-[var(--colorTextPrimary)]">
                     Refer a Friend & Earn £5
                   </h2>
-                  <p className="mt-3 text-[15px] leading-[24px] text-[var(--colorNeutral600)]">
+                  <p data-reveal className="mt-3 text-[15px] leading-[24px] text-[var(--colorNeutral600)]">
                     Get a £5 reward when your friend sends at least £100 on their
                     first transfer. There&apos;s no limit — share your unique link
                     and grow your rewards every time someone new joins.
                   </p>
-                  <a
+                  <a data-reveal
                     href="https://app.paymit.co.uk/register"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -166,6 +168,7 @@ export default function PromotionsPage() {
                 </div>
               </div>
             </div>
+            </Reveal>
           </section>
         </SectionReveal>
       </main>

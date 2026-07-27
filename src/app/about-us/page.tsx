@@ -1,6 +1,7 @@
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
+import { Reveal } from "@/components/reveal";
 
 export const metadata = {
   title: "About Us | Paymit",
@@ -14,23 +15,23 @@ export default function AboutUsPage() {
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
         {/* Hero */}
-        <section
-          className="mx-auto w-full"
-          style={{
-            maxWidth: "var(--layoutMaxWidth)",
-            padding: "var(--sectionPaddingY) var(--layoutMargin)",
-          }}
-        >
-          <div className="mx-auto max-w-3xl text-center">
+        <section className="w-full">
+          <div
+            className="mx-auto w-full"
+            style={{
+              maxWidth: "var(--layoutMaxWidth)",
+              padding: "var(--sectionPaddingY) var(--layoutMargin)",
+            }}
+          >
             <h1
-              className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px] max-lg:tracking-[-1.3px]"
-              style={{ textWrap: "balance" }}
+              className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
+              style={{ textWrap: "balance", maxWidth: "720px" }}
             >
               About{" "}
               <span className="text-[var(--colorTextActionPrimary)]">Paymit</span>
             </h1>
             <p
-              className="mt-6 text-[18px] font-medium leading-[28px] text-[var(--colorNeutral600)]"
+              className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2"
               style={{ textWrap: "balance" }}
             >
               Bringing money remittance into the digital age — fast, affordable,
@@ -48,22 +49,23 @@ export default function AboutUsPage() {
               padding: "0 var(--layoutMargin) var(--sectionPaddingY)",
             }}
           >
+            <Reveal targets="[data-reveal]" stagger={0.08} y={16} duration={0.5}>
             <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
               <div>
-                <h2
+                <h2 data-reveal
                   className="text-[36px] font-semibold leading-[1.1] tracking-[-1px] text-[var(--colorTextPrimary)] md:text-[44px] md:tracking-[-1.2px]"
                   style={{ textWrap: "balance" }}
                 >
                   Our{" "}
                   <span className="text-[var(--colorTextActionPrimary)]">Story</span>
                 </h2>
-                <p className="mt-6 text-[16px] font-normal leading-[26px] text-[var(--colorNeutral600)]">
+                <p data-reveal className="mt-6 text-[16px] font-normal leading-[26px] text-[var(--colorNeutral600)]">
                   Paymit Limited is a Payment Service Provider (PSP) incorporated
                   in England. We focus on bringing the traditional "brick and
                   mortar" money remittance experience into the digital age — making
                   it faster, more affordable, and accessible from anywhere.
                 </p>
-                <p className="mt-4 text-[16px] font-normal leading-[26px] text-[var(--colorNeutral600)]">
+                <p data-reveal className="mt-4 text-[16px] font-normal leading-[26px] text-[var(--colorNeutral600)]">
                   Our office is located at 85 Great Portland Street, First Floor,
                   London, England, W1W 7LT.
                 </p>
@@ -72,10 +74,11 @@ export default function AboutUsPage() {
               {/* Regulatory cards */}
               <div className="flex flex-col gap-4">
                 <div
+                  data-reveal
                   className="rounded-[var(--borderRadiusMd)] border p-6"
                   style={{ borderColor: "var(--colorBorderLight)" }}
                 >
-                  <div className="flex items-center gap-3">
+                  <div data-reveal className="flex items-center gap-3">
                     <div
                       className="flex size-10 shrink-0 items-center justify-center rounded-full"
                       style={{ backgroundColor: "var(--colorBrand25)" }}
@@ -94,25 +97,26 @@ export default function AboutUsPage() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-[18px] font-semibold text-[var(--colorTextPrimary)]">
+                      <h3 data-reveal className="text-[18px] font-semibold text-[var(--colorTextPrimary)]">
                         FCA Regulated
                       </h3>
-                      <p className="text-[14px] text-[var(--colorNeutral500)]">
+                      <p data-reveal className="text-[14px] text-[var(--colorNeutral500)]">
                         Small Payment Institution — License #945293
                       </p>
                     </div>
                   </div>
-                  <p className="mt-3 text-[14px] leading-[22px] text-[var(--colorNeutral600)]">
+                  <p data-reveal className="mt-3 text-[14px] leading-[22px] text-[var(--colorNeutral600)]">
                     Regulated under the Payment Services Regulation 2017 by the
                     Financial Conduct Authority.
                   </p>
                 </div>
 
                 <div
+                  data-reveal
                   className="rounded-[var(--borderRadiusMd)] border p-6"
                   style={{ borderColor: "var(--colorBorderLight)" }}
                 >
-                  <div className="flex items-center gap-3">
+                  <div data-reveal className="flex items-center gap-3">
                     <div
                       className="flex size-10 shrink-0 items-center justify-center rounded-full"
                       style={{ backgroundColor: "var(--colorBrand25)" }}
@@ -132,23 +136,24 @@ export default function AboutUsPage() {
                       </svg>
                     </div>
                     <div>
-                      <h3 className="text-[18px] font-semibold text-[var(--colorTextPrimary)]">
+                      <h3 data-reveal className="text-[18px] font-semibold text-[var(--colorTextPrimary)]">
                         HMRC Registered
                       </h3>
-                      <p className="text-[14px] text-[var(--colorNeutral500)]">
+                      <p data-reveal className="text-[14px] text-[var(--colorNeutral500)]">
                         Money Services Business — Reg #XFML00000159053
                       </p>
                     </div>
                   </div>
-                  <p className="mt-3 text-[14px] leading-[22px] text-[var(--colorNeutral600)]">
+                  <p data-reveal className="mt-3 text-[14px] leading-[22px] text-[var(--colorNeutral600)]">
                     Fully compliant with Money Laundering Regulations and all
                     HMRC requirements.
                   </p>
                 </div>
               </div>
             </div>
-          </section>
-        </SectionReveal>
+            </Reveal>
+      </section>
+    </SectionReveal>
 
         {/* Vision & Mission */}
         <SectionReveal>
@@ -163,9 +168,10 @@ export default function AboutUsPage() {
                 padding: "var(--sectionPaddingY) var(--layoutMargin)",
               }}
             >
+              <Reveal targets="[data-reveal]" stagger={0.1} y={16} duration={0.5}>
               <div className="grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
                 <div>
-                  <h2
+                  <h2 data-reveal
                     className="text-[36px] font-semibold leading-[1.1] tracking-[-1px] text-[var(--colorTextPrimary)] md:text-[40px]"
                     style={{ textWrap: "balance" }}
                   >
@@ -174,7 +180,7 @@ export default function AboutUsPage() {
                       Vision
                     </span>
                   </h2>
-                  <blockquote className="mt-6 border-l-2 pl-6 text-[16px] font-normal leading-[26px] text-[var(--colorNeutral600)]" style={{ borderColor: "var(--colorBrand300)" }}>
+                  <blockquote data-reveal className="mt-6 border-l-2 pl-6 text-[16px] font-normal leading-[26px] text-[var(--colorNeutral600)]" style={{ borderColor: "var(--colorBrand300)" }}>
                     &ldquo;Create a world where sending money to family and loved
                     ones is fast, affordable, and completely secure. Eliminate the
                     barriers of distance, enabling people to support and connect
@@ -183,7 +189,7 @@ export default function AboutUsPage() {
                 </div>
 
                 <div>
-                  <h2
+                  <h2 data-reveal
                     className="text-[36px] font-semibold leading-[1.1] tracking-[-1px] text-[var(--colorTextPrimary)] md:text-[40px]"
                     style={{ textWrap: "balance" }}
                   >
@@ -192,7 +198,7 @@ export default function AboutUsPage() {
                       Mission
                     </span>
                   </h2>
-                  <blockquote className="mt-6 border-l-2 pl-6 text-[16px] font-normal leading-[26px] text-[var(--colorNeutral600)]" style={{ borderColor: "var(--colorBrand300)" }}>
+                  <blockquote data-reveal className="mt-6 border-l-2 pl-6 text-[16px] font-normal leading-[26px] text-[var(--colorNeutral600)]" style={{ borderColor: "var(--colorBrand300)" }}>
                     &ldquo;Provide individuals with seamless, dependable, and fast
                     money transfers through{" "}
                     <strong className="font-semibold text-[var(--colorTextPrimary)]">
@@ -211,6 +217,7 @@ export default function AboutUsPage() {
                   </blockquote>
                 </div>
               </div>
+              </Reveal>
             </div>
           </section>
         </SectionReveal>

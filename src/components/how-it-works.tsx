@@ -17,6 +17,7 @@ import {
   Loader2,
   ChevronDown,
 } from "lucide-react";
+import { Reveal } from "@/components/reveal";
 
 const MAX_PLAYS = 2;
 
@@ -130,7 +131,8 @@ export function HowItWorks() {
 
     mainTl.current = tl;
 
-    const humanType = (str: string, startTime: number, setter: (s: string) => void) => {
+    const humanType = (str: string | undefined, startTime: number, setter: (s: string) => void) => {
+      if (!str) return startTime;
       let t = startTime;
       str.split("").forEach((ch, i) => {
         const dur = 0.035 + Math.random() * 0.03 + (ch === "@" || ch === "." ? 0.07 : 0);
@@ -372,17 +374,30 @@ export function HowItWorks() {
       <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
         {/* === Left: Text === */}
         <div className="lg:col-span-5">
-          <h1
-            className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px] max-lg:tracking-[-1.3px]"
-            style={{ textWrap: "balance" }}
-          >
-            Send Money in{" "}
-            <span className="text-[var(--colorTextActionPrimary)]">3 Easy Steps</span>
-          </h1>
-          <p className="mt-2.5 text-lg font-medium leading-[26px] text-[var(--colorNeutral600)]">
-            Fast, simple, and secure. From account creation to delivery, we
-            handle every step effortlessly.
-          </p>
+          <Reveal stagger={0.12} y={24}>
+            {/* <h1
+              className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px] max-lg:tracking-[-1.3px]"
+              style={{ textWrap: "balance" }}
+            >
+              Send Money in{" "}
+              <span className="text-[var(--colorTextActionPrimary)]">3 Easy Steps</span>
+            </h1> */}
+
+               <h2
+                          className="text-[26px] font-bold leading-[1.1] tracking-[-0.5px] text-black md:text-[44px] md:leading-[1.05] md:tracking-[-1.4px] lg:text-[66px]"
+                
+                        >
+                           Send <br /> Money {" "} <br />
+                          <span className="text-[var(--colorBrand300)]">
+                            In 3 Easy <br />
+                          Steps
+                          </span>
+                        </h2>
+            <p className="mt-2.5 text-lg font-semibold leading-[26px] text-black">
+              Fast, simple, and secure. From account creation to delivery, we
+              handle every step effortlessly.
+            </p>
+          </Reveal>
         </div>
 
         {/* === Right: Animation Canvas === */}

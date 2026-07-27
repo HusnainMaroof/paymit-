@@ -1,6 +1,7 @@
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { SectionReveal } from "@/components/section-reveal";
+import { Reveal } from "@/components/reveal";
 
 export const metadata = {
   title: "Help Centre | Paymit",
@@ -98,23 +99,23 @@ export default function HelpCenterPage() {
       <Nav />
       <main className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
         {/* Hero */}
-        <section
-          className="mx-auto w-full"
-          style={{
-            maxWidth: "var(--layoutMaxWidth)",
-            padding: "var(--sectionPaddingY) var(--layoutMargin)",
-          }}
-        >
-          <div className="mx-auto max-w-3xl text-center">
+        <section className="w-full">
+          <div
+            className="mx-auto w-full"
+            style={{
+              maxWidth: "var(--layoutMaxWidth)",
+              padding: "var(--sectionPaddingY) var(--layoutMargin)",
+            }}
+          >
             <h1
-              className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px] max-lg:tracking-[-1.3px]"
-              style={{ textWrap: "balance" }}
+              className="text-[80px] font-semibold leading-[78px] tracking-[-2.4px] text-[var(--colorTextPrimary)] max-lg:text-[68px] max-lg:leading-[66px] max-lg:tracking-[-2px]"
+              style={{ textWrap: "balance", maxWidth: "720px" }}
             >
               Help{" "}
               <span className="text-[var(--colorTextActionPrimary)]">Centre</span>
             </h1>
             <p
-              className="mt-6 text-[18px] font-medium leading-[28px] text-[var(--colorNeutral600)]"
+              className="mt-2.5 text-lg font-medium text-[var(--colorNeutral600)] max-lg:mt-0 max-lg:mb-2"
               style={{ textWrap: "balance" }}
             >
               Find answers to common questions or get in touch with our team.
@@ -131,9 +132,10 @@ export default function HelpCenterPage() {
             padding: "0 var(--layoutMargin) var(--sectionPaddingY)",
           }}
         >
+          <Reveal targets="[data-reveal]" stagger={0.06} y={16} duration={0.45}>
           <div className="flex flex-col gap-12">
             {faqSections.map((section) => (
-              <div key={section.title}>
+              <div key={section.title} data-reveal>
                 <h2
                   className="text-[28px] font-semibold text-[var(--colorTextPrimary)] max-md:text-[24px]"
                   style={{ textWrap: "balance" }}
@@ -144,6 +146,7 @@ export default function HelpCenterPage() {
                   {section.questions.map((item) => (
                     <details
                       key={item.q}
+                      data-reveal
                       className="group rounded-[var(--borderRadiusMd)] border transition-all duration-200"
                       style={{ borderColor: "var(--colorBorderLight)" }}
                     >
@@ -179,10 +182,12 @@ export default function HelpCenterPage() {
               </div>
             ))}
           </div>
+          </Reveal>
           </section>
         </SectionReveal>
 
         {/* Contact CTA */}
+        <SectionReveal>
         <section
           className="w-full"
           style={{ backgroundColor: "var(--colorNeutral50)" }}
@@ -194,14 +199,16 @@ export default function HelpCenterPage() {
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
             }}
           >
+            <Reveal targets="[data-reveal]" stagger={0.08} y={16} duration={0.45}>
             <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-[32px] font-semibold text-[var(--colorTextPrimary)] max-md:text-[28px]">
+              <h2 data-reveal className="text-[32px] font-semibold text-[var(--colorTextPrimary)] max-md:text-[28px]">
                 Still have questions?
               </h2>
-              <p className="mt-3 text-[16px] text-[var(--colorNeutral600)]">
+              <p data-reveal className="mt-3 text-[16px] text-[var(--colorNeutral600)]">
                 Our support team is ready to help.
               </p>
               <a
+                data-reveal
                 href="/contact-us"
                 className="btn-morph mt-8 inline-flex h-11 items-center justify-center gap-2 rounded-[var(--borderRadiusSm)] px-6 text-[14px] font-medium text-white transition-all duration-200 hover:scale-[1.03] hover:bg-[var(--colorBrand850)] hover:shadow-md hover:shadow-[var(--colorBrand300)]/30"
                 style={{ backgroundColor: "var(--colorBrand900)" }}
@@ -209,8 +216,10 @@ export default function HelpCenterPage() {
                 Contact Us
               </a>
             </div>
+            </Reveal>
           </div>
         </section>
+        </SectionReveal>
       </main>
       <Footer />
     </>

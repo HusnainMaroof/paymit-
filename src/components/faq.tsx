@@ -1,12 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Reveal } from "@/components/reveal";
+import gsap from "gsap";
+
+function splitSentences(text: string | undefined): string[] {
+  if (!text) return [""];
+  const sentences = text.match(/[^.!?]+[.!?]+/g);
+  return sentences && sentences.length > 0 ? sentences : [text];
+}
 
 const items = [
   {
@@ -73,6 +81,33 @@ const items = [
 
 export function Faq() {
   const [openId, setOpenId] = useState<string>("1");
+  const isFirstOpen = useRef(true);
+
+  useEffect(() => {
+    if (isFirstOpen.current) {
+      isFirstOpen.current = false;
+      return;
+    }
+    if (!openId) return;
+
+    const sentences = document.querySelectorAll<HTMLElement>(
+      `[data-accordion-content="${openId}"] [data-sentence]`,
+    );
+    if (!sentences.length) return;
+
+    gsap.fromTo(
+      sentences,
+      { autoAlpha: 0 },
+      {
+        autoAlpha: 1,
+        duration: 0.35,
+        stagger: 0.06,
+        ease: "power2.out",
+        delay: 0.08,
+        clearProps: "opacity,visibility",
+      },
+    );
+  }, [openId]);
 
   return (
     <section
@@ -83,55 +118,63 @@ export function Faq() {
       }}
     >
       {/* Header */}
-      <div className="mx-auto max-w-3xl text-center">
-        <h1
-          className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px] max-lg:tracking-[-1.3px]"
-          style={{ textWrap: "balance" }}
-        >
-          Frequently Asked{" "}
-          <span className="text-[var(--colorTextActionPrimary)]">Questions</span>
-        </h1>
-      </div>
+      <Reveal targets="[data-reveal]" stagger={0.07} duration={0.7} y={24}>
+        <div data-reveal className="mx-auto max-w-3xl text-center">
+          <h1
+            className="text-[56px] font-semibold leading-[54px] tracking-[-1.7px] text-[var(--colorTextPrimary)] max-lg:text-[44px] max-lg:leading-[42px] max-lg:tracking-[-1.3px]"
+            style={{ textWrap: "balance" }}
+          >
+            Frequently Asked{" "}
+            <span className="text-[var(--colorTextActionPrimary)]">
+              Questions
+            </span>
+          </h1>
+        </div>
 
-      {/* Accordion */}
-      <div className="mx-auto mt-16 w-full max-w-5xl">
-        <Accordion
-          type="single"
-          value={openId}
-          onValueChange={setOpenId}
-          collapsible
-          className="w-full"
-        >
-          {items.map((item) => (
-            <AccordionItem
-              value={item.id}
-              key={item.id}
-              className="group/item last:border-b border-[var(--colorBorderLight)]"
-              onMouseEnter={() => setOpenId(item.id)}
-            >
-              <AccordionTrigger
-                className="text-left pl-6 md:pl-14 overflow-hidden cursor-pointer -space-y-6 py-4  no-underline hover:no-underline transition-colors duration-300 [&>svg]:hidden"
-                indicator={null}
+        {/* Accordion */}
+        <div className="mx-auto mt-16 w-full max-w-5xl">
+          <Accordion
+            type="single"
+            value={openId}
+            onValueChange={setOpenId}
+            collapsible
+            className="w-full"
+          >
+            {items.map((item) => (
+              <AccordionItem
+                value={item.id}
+                key={item.id}
+                data-reveal
+                className="border-b border-[var(--colorBorderLight)]"
               >
-                <div className="flex flex-1 items-start gap-4">
-                  <p className="text-xs font-mono pt-2 text-[var(--colorNeutral400)] transition-colors duration-300 group-hover/item:text-[var(--colorBrand300)] group-data-[state=open]/item:text-[var(--colorBrand300)]">
-                    {item.id}
-                  </p>
-                  <h2 className="uppercase text-[28px] md:text-[44px] font-semibold leading-[1.05] tracking-[-0.5px] md:tracking-[-1px] text-foreground/20 transition-colors duration-300 group-hover/item:text-[var(--colorTextActionPrimary)] group-data-[state=open]:space-y-0 group-data-[state=open]:text-primary">
-                    {item.title}
-                  </h2>
-                </div>
-              </AccordionTrigger>
+                <AccordionTrigger className="group flex w-full items-center justify-between gap-4 py-5 pl-6 pr-4 text-left md:pl-14 cursor-pointer no-underline hover:no-underline">
+                  <div className="flex flex-1 items-start gap-4">
+                    <span className="shrink-0 pt-1 font-mono text-[11px] text-[var(--colorNeutral400)] transition-colors duration-200 group-data-[state=open]:text-[var(--colorBrand300)]">
+                      {item.id}
+                    </span>
+                    <span className="text-[18px] font-semibold leading-[1.3] tracking-[-0.3px] text-[var(--colorNeutral400)] transition-colors duration-200 group-data-[state=open]:text-[var(--colorTextPrimary)] max-md:text-[16px]">
+                      {item.title}
+                    </span>
+                  </div>
+                </AccordionTrigger>
 
-              <AccordionContent className="text-muted-foreground pb-8 pl-6 md:pl-20 md:pr-10">
-                <p className="text-[16px] font-normal leading-[1.7] text-[var(--colorNeutral600)] md:max-w-[640px]">
-                  {item.content}
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
+                <AccordionContent className="pb-6 pl-6 pr-4 md:pl-20 md:pr-10">
+                  <p
+                    data-accordion-content={item.id}
+                    className="text-[16px] font-semibold leading-[1.7] text-[var(--colorNeutral600)] md:max-w-[640px]"
+                  >
+                    {splitSentences(item.content).map((s, i) => (
+                      <span key={i} data-sentence>
+                        {s}{" "}
+                      </span>
+                    ))}
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </Reveal>
     </section>
   );
 }
