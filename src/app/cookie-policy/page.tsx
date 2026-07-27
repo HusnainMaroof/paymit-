@@ -27,7 +27,7 @@ export default function CookiePolicyPage() {
         {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full flex justify-between items-center"
+            className="mx-auto w-full md:flex justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
@@ -41,7 +41,7 @@ export default function CookiePolicyPage() {
               <span className="text-[var(--colorTextActionPrimary)] block">Policy</span>
             </h1>
             <p
-              className="text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
+              className="mt-2.5 pt-10 text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
               style={{ textWrap: "balance" }}
             >
               How we use cookies and similar<br />technologies on our website.

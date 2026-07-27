@@ -29,7 +29,7 @@ export default function PromotionsPage() {
         {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full flex justify-between items-center"
+            className="mx-auto w-full md:flex justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
@@ -42,7 +42,7 @@ export default function PromotionsPage() {
               <span className="text-[var(--colorTextActionPrimary)]">Promotions</span>
             </h1>
             <p
-              className="text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
+              className="mt-2.5 pt-10 text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
               style={{ textWrap: "balance" }}
             >
               Exclusive offers to make your <br /> money transfers even better <br /> and more rewarding.

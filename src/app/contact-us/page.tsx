@@ -59,7 +59,7 @@ export default function ContactUsPage() {
         {/* Hero */}
         <section className="w-full">
           <div
-            className="mx-auto w-full flex justify-between items-center"
+            className="mx-auto w-full md:flex justify-between items-center"
             style={{
               maxWidth: "var(--layoutMaxWidth)",
               padding: "var(--sectionPaddingY) var(--layoutMargin)",
@@ -73,7 +73,7 @@ export default function ContactUsPage() {
               <span className="text-[var(--colorTextActionPrimary)] block">Us</span>
             </h1>
             <p
-              className="text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
+              className="mt-2.5 pt-10 text-4xl font-medium text-[var(--colorNeutral600)] pr-10"
               style={{ textWrap: "balance" }}
             >
               Have a question or need help? <br /> We&apos;re here for you via email <br /> or WhatsApp.
