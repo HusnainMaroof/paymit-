@@ -453,7 +453,7 @@ export function HowItWorks() {
         {/* === Right: Animation Canvas === */}
         <div className="lg:col-span-7 w-full">
           <div
-            className="relative w-full h-[580px] rounded-[28px] border overflow-hidden p-6 sm:p-8 flex flex-col justify-between bg-[var(--colorBrand50)]"
+            className="relative w-full h-[580px] rounded-[28px] border overflow-hidden p-6 sm:p-8 flex flex-col justify-between bg-[var(--colorBrand300)]"
             style={{
               borderColor: "var(--colorNeutral200)",
    

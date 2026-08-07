@@ -9,7 +9,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CURRENCIES, getRate, getSymbol, formatRate, fmt } from "@/data/currencies";
+import {
+  CURRENCIES,
+  SEND_CURRENCIES,
+  RECEIVE_CURRENCIES,
+  getRate,
+  getSymbol,
+  formatRate,
+  fmt,
+} from "@/data/currencies";
 
 const useIsomorphicLayoutEffect =
   typeof window !== "undefined" ? useLayoutEffect : useEffect;
@@ -63,7 +71,11 @@ export function Hero() {
         const words = scope.querySelectorAll<HTMLElement>("[data-hero-word]");
         if (words.length) {
           if (reduce) {
-            gsap.set(words, { autoAlpha: 1, y: 0, clearProps: "transform,opacity" });
+            gsap.set(words, {
+              autoAlpha: 1,
+              y: 0,
+              clearProps: "transform,opacity",
+            });
           } else {
             gsap.set(words, { autoAlpha: 0, y: 24 });
             gsap.to(words, {
@@ -99,18 +111,28 @@ export function Hero() {
         if (!elements.length) return;
 
         if (reduce) {
-          gsap.set(elements, { autoAlpha: 1, y: 0, clearProps: "transform,opacity" });
+          gsap.set(elements, {
+            autoAlpha: 1,
+            y: 0,
+            clearProps: "transform,opacity",
+          });
           return;
         }
 
         gsap.set(elements, { autoAlpha: 0, y: 24 });
 
-        const tl = gsap.timeline({ defaults: { duration: 0.6, ease: "power3.out" } });
-        tl.to(elements, {
-          autoAlpha: 1,
-          y: 0,
-          stagger: 0.1,
-        }, 0.15);
+        const tl = gsap.timeline({
+          defaults: { duration: 0.6, ease: "power3.out" },
+        });
+        tl.to(
+          elements,
+          {
+            autoAlpha: 1,
+            y: 0,
+            stagger: 0.1,
+          },
+          0.15,
+        );
       },
     );
 
@@ -118,7 +140,10 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="w-full bg-white" style={{ paddingTop: "var(--headerNavOffset)" }}>
+    <section
+      className="w-full bg-white"
+      style={{ paddingTop: "var(--headerNavOffset)" }}
+    >
       {/* Desktop / Tablet layout (≥768px) — 24-col grid */}
       <div
         ref={desktopRef}
@@ -140,7 +165,6 @@ export function Hero() {
         }}
       >
         {/* Hero Pill */}
-      
 
         {/* Heading */}
         <h1
@@ -148,7 +172,9 @@ export function Hero() {
           style={{ gridArea: "h", textWrap: "balance", maxWidth: "720px" }}
         >
           <span data-hero-word>Send</span>{" "}
-          <span data-hero-word className="text-[var(--colorTextActionPrimary)]">money</span>{" "}
+          <span data-hero-word className="text-[var(--colorTextActionPrimary)]">
+            money
+          </span>{" "}
           <span data-hero-word>worldwide.</span>
         </h1>
 
@@ -156,7 +182,7 @@ export function Hero() {
         <p
           data-hero
           className="mt-2.5 text-lg   font-medium  max-lg:mt-0 max-lg:mb-2"
-          style={{ gridArea: "t"}}
+          style={{ gridArea: "t" }}
         >
           Experience fast, secure, and hassle-free international transfers with
           our commitment to the lowest fees.
@@ -211,54 +237,63 @@ export function Hero() {
         }}
       >
         {/* Hero Pill */}
-    
 
-<div className="flex w-full max-w-[440px] flex-col gap-5">
-           {/* Heading */}
-        <h1 data-hero className="self-start text-[40px] font-semibold leading-[38px] tracking-[-1px] text-[var(--colorTextPrimary)] pt-4"
-          style={{ textWrap: "balance" }}
-        >
-          <span data-hero-word>Send</span>{" "}
-          <span data-hero-word className="text-[var(--colorTextActionPrimary)]">money</span>{" "} <br />
-          <span data-hero-word>worldwide.</span>
-        </h1>
-
-        {/* Body */}
-        <p data-hero className="self-start text-[18px] font-medium leading-[26px] text-[var(--colorNeutral600)]"
-          style={{ textWrap: "balance" }}
-        >
-          Experience fast, secure, and hassle-free international transfers with
-          our commitment to the lowest fees.
-        </p>
-
-        {/* CTA Button */}
-        <a
-          href="#"
-          data-hero
-          className="btn-hero-morph group flex w-full items-center justify-between gap-4 rounded-[var(--borderRadiusXs)] border border-[var(--colorBorderLight)] bg-[var(--colorNeutral100)] p-4 no-underline"
-          style={{ color: "var(--colorText)" }}
-        >
-          <span className="font-medium text-base leading-4 text-[var(--colorTextPrimary)]">
-            Get started
-          </span>
-          <span className="arrow-tile flex size-8 shrink-0 items-center justify-center rounded-[var(--borderRadiusXs)] bg-white">
-            <svg
-              className="size-4 text-[var(--colorNeutral900)] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+        <div className="flex w-full max-w-[440px] flex-col gap-5">
+          {/* Heading */}
+          <h1
+            data-hero
+            className="self-start text-[40px] font-semibold leading-[38px] tracking-[-1px] text-[var(--colorTextPrimary)] pt-4"
+            style={{ textWrap: "balance" }}
+          >
+            <span data-hero-word>Send</span>{" "}
+            <span
+              data-hero-word
+              className="text-[var(--colorTextActionPrimary)]"
             >
-              <path d="M7 17 17 7M9 7h8v8" />
-            </svg>
-          </span>
-        </a>
-      </div>
+              money
+            </span>{" "}
+            <br />
+            <span data-hero-word>worldwide.</span>
+          </h1>
+
+          {/* Body */}
+          <p
+            data-hero
+            className="self-start text-[18px] font-medium leading-[26px] text-[var(--colorNeutral600)]"
+            style={{ textWrap: "balance" }}
+          >
+            Experience fast, secure, and hassle-free international transfers
+            with our commitment to the lowest fees.
+          </p>
+
+          {/* CTA Button */}
+          <a
+            href="#"
+            data-hero
+            className="btn-hero-morph group flex w-full items-center justify-between gap-4 rounded-[var(--borderRadiusXs)] border border-[var(--colorBorderLight)] bg-[var(--colorNeutral100)] p-4 no-underline"
+            style={{ color: "var(--colorText)" }}
+          >
+            <span className="font-medium text-base leading-4 text-[var(--colorTextPrimary)]">
+              Get started
+            </span>
+            <span className="arrow-tile flex size-8 shrink-0 items-center justify-center rounded-[var(--borderRadiusXs)] bg-white">
+              <svg
+                className="size-4 text-[var(--colorNeutral900)] transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M7 17 17 7M9 7h8v8" />
+              </svg>
+            </span>
+          </a>
+        </div>
 
         {/* Converter Card */}
-        <div data-hero ref={graphicRef} >
+        <div data-hero ref={graphicRef}>
           <HeroGraphicCard />
         </div>
       </div>
@@ -299,43 +334,17 @@ function HeroGraphicCard() {
           <span className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[14px] font-semibold">
             You Pay
           </span>
-          <Select value={sendCountry} onValueChange={handleSendChange}>
-            <SelectTrigger className="h-11  w-auto cursor-pointer gap-2  border border-[var(--colorNeutral200)] bg-white px-3.5 py-5  font-semibold text-[var(--colorTextPrimary)] tracking-[-0.01em] transition-colors duration-150 hover:border-[var(--colorNeutral300)] ">
-              <SelectValue>
-                <span className="flex items-center gap-2">
-                  <FlagImg
-                    key={sendItem.iso}
-                    iso={sendItem.iso}
-                    size={30}
-                    className="animate-[fade-in_0.2s_ease-out] max-sm:size-[18px]"
-                  />
-                  <span className="text-base font-semibold max-sm:text-sm">
-                    {sendItem.code}
-                  </span>
-                </span>
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent
-              alignItemWithTrigger={false}
-              className="max-h-[280px] min-w-[140px] overflow-y-auto rounded-[14px] border border-[var(--colorNeutral200)] p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.1)]"
-            >
-              {CURRENCIES.map((c, i) => (
-                <SelectItem
-                  key={c.code}
-                  value={c.code}
-                  className="my-0.5 cursor-pointer rounded-[10px] px-3 py-2.5 text-sm transition-all duration-150 data-[highlighted]:bg-[var(--colorNeutral50)]"
-                  style={{ animation: `fade-in-dropdown 0.2s ease-out ${i * 0.03}s both` }}
-                >
-                  <span className="flex items-center gap-2.5">
-                    <FlagImg iso={c.iso} size={20} />
-                    <span className="text-[15px] font-semibold text-[var(--colorTextPrimary)]">
-                      {c.code}
-                    </span>
-                  </span>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="inline-flex h-11 items-center gap-2 rounded-[var(--borderRadiusXs)] border border-[var(--colorNeutral200)] bg-white px-3.5 py-5 font-semibold text-[var(--colorTextPrimary)] tracking-[-0.01em]">
+            <FlagImg
+              key={sendItem.iso}
+              iso={sendItem.iso}
+              size={30}
+              className="animate-[fade-in_0.2s_ease-out] max-sm:size-[18px]"
+            />
+            <span className="text-base font-semibold max-sm:text-sm">
+              {sendItem.code}
+            </span>
+          </div>
         </div>
         <div className="flex items-baseline">
           <span className="text-[36px] font-semibold leading-[1.1] tracking-[-0.02em] text-[var(--colorNeutral400)] transition-all duration-300 max-md:text-[28px] max-sm:text-[24px]">
@@ -384,12 +393,14 @@ function HeroGraphicCard() {
               alignItemWithTrigger={false}
               className="max-h-[280px] min-w-[140px] overflow-y-auto rounded-[14px] border border-[var(--colorNeutral200)] p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.1)]"
             >
-              {CURRENCIES.map((c, i) => (
+              {RECEIVE_CURRENCIES.map((c, i) => (
                 <SelectItem
                   key={c.code}
                   value={c.code}
                   className="my-0.5 cursor-pointer rounded-[10px] px-3 py-2.5 text-sm transition-all duration-150 data-[highlighted]:bg-[var(--colorNeutral50)]"
-                  style={{ animation: `fade-in-dropdown 0.2s ease-out ${i * 0.03}s both` }}
+                  style={{
+                    animation: `fade-in-dropdown 0.2s ease-out ${i * 0.03}s both`,
+                  }}
                 >
                   <span className="flex items-center gap-2.5">
                     <FlagImg iso={c.iso} size={20} />
