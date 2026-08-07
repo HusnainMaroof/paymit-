@@ -27,7 +27,7 @@ export const SEND_CURRENCIES: Currency[] = CURRENCIES.filter(
   (c) => c.code === "GBP",
 );
 
-const RECEIVE_CODES = ["NGN", "GHS", "GMD", "XOF", "PKR", "INR", "BDT"];
+const RECEIVE_CODES = ["GMD", "GHS", "NGN"];
 export const RECEIVE_CURRENCIES: Currency[] = RECEIVE_CODES.map((code) =>
   CURRENCIES.find((c) => c.code === code)!,
 ).filter((c): c is Currency => c !== undefined);
