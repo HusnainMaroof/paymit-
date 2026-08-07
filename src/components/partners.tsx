@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+  useState,
+} from "react";
 import {
   motion,
   useScroll,
@@ -26,6 +32,10 @@ const COUNTRY_NAMES: Record<string, string> = {
   AUD: "Australia",
   JPY: "Japan",
   BRL: "Brazil",
+  GMD: "Gambia",
+  XOF: "Senegal",
+  PKR: "Pakistan",
+  BDT: "Bangladesh",
 };
 
 type Country = { code: string; iso: string; symbol: string };
@@ -131,7 +141,12 @@ function CountryPill({
     -450, -375, -300, -200, -100, 0, 100, 200, 300, 375, 450,
   ];
   const xPushDesktop = [300, 250, 200, 150, 80, 0, 80, 150, 200, 250, 300];
-  const alphasDesktop = Array(11).fill(1);
+  // Fade out the far edge pills on desktop (just like mobile). The edge slots
+  // are spaced tighter than pill height and use hard jumps, so keeping them
+  // opaque made them teleport across / overlap the animating pills at the
+  // start. Hiding them removes the "stack over" glitch while the central
+  // pills keep animating exactly as before.
+  const alphasDesktop = [0, 0, 0, 0.45, 0.85, 1, 0.85, 0.45, 0, 0, 0];
 
   const ROW = 84;
   const scalesMobile = Array(11).fill(1);
@@ -146,6 +161,8 @@ function CountryPill({
   const xPush = isMobile ? xPushMobile : xPushDesktop;
   const alphas = isMobile ? alphasMobile : alphasDesktop;
 
+  const firstRun = useRef(true);
+
   const update = useCallback(() => {
     const currentIdx = currentIndex.get();
     let dist = index - currentIdx;
@@ -158,8 +175,14 @@ function CountryPill({
       return;
     }
 
+    // On the very first pass we snap (jump) every value to its correct
+    // spread position so pills never flash stacked at the center on load.
+    // All subsequent passes animate exactly as before.
+    const isFirst = firstRun.current;
+    firstRun.current = false;
+
     const far = isMobile ? Math.abs(slot - 5) > 2 : Math.abs(slot - 5) > 4;
-    const apply = far
+    const apply = far || isFirst
       ? (mv: ReturnType<typeof useSpring>, val: number) => mv.jump(val)
       : (mv: ReturnType<typeof useSpring>, val: number) => mv.set(val);
 
@@ -185,7 +208,7 @@ function CountryPill({
   ]);
 
   useMotionValueEvent(currentIndex, "change", update);
-  useEffect(() => {
+  useLayoutEffect(() => {
     update();
   }, [update]);
 
@@ -218,7 +241,7 @@ function CountryPill({
         y,
         x,
         scale,
-       
+        opacity,
         backgroundColor: isMobile ? "transparent" : bgMV,
         borderColor: isMobile ? "transparent" : borderMV,
         marginTop: isMobile ? "-40px" : "-38px",
@@ -275,8 +298,11 @@ export function Partners() {
   const contentOpacity = useTransform(progress, [0.2, 0.7], [0, 1]);
 
   const { listY, handlers } = useInertialList({
-    idleVelocity: 0.6,
-    initialVelocity: 2.5,
+    // Visible auto-rotate: the center country advances every ~150px of list
+    // drift. ~2px/frame (~120px/s) cycles a country roughly every 1.2s and
+    // starts at full speed straight away. Manual drag still pauses it.
+    idleVelocity: 2,
+    initialVelocity: 2,
     friction: 0.3,
   });
 
@@ -322,9 +348,9 @@ export function Partners() {
               className="text-[36px] font-bold leading-[1.1] tracking-[-0.5px] text-white md:text-[44px] md:leading-[1.05] md:tracking-[-1.4px] lg:text-[66px]"
               style={{ textWrap: "balance" }}
             >
-              Send money <br /> to{" "}  {CURRENCIES.length}+ <br />
+              Send money <br /> to{" "}  back <br />
               <span className="text-[var(--colorBrand300)]">
-               countries
+               Home
               </span>
             </h2>
             <p className="mt-3 text-[13px] font-medium leading-[20px] text-white/55 md:mt-4 md:text-[18px] md:leading-[26px]">
